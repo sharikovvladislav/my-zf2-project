@@ -1,0 +1,16 @@
+<h1>403 Forbidden</h1>
+<p>
+    <?php if (\BjyAuthorize\Guard\Controller::ERROR === $error) : ?>
+        Вам запрещен доступ к контролеру: <?php echo($controller);?>
+        <?php if ($action) : ?>
+        ::<?php echo($action);?>Action()
+        <?php endif;?>
+        .
+    <?php elseif (\BjyAuthorize\Guard\Route::ERROR === $error)  : ?>
+        Вам запрещен доступ к данной директории <?php echo $route;?>.
+    <?php elseif ($error == 'error-unauthorized') : ?>
+        Доступ запрещен: <?php echo $reason; ?>.
+    <?php else : ?>
+    An unknown error occurred.
+    <?php endif;?>
+</p>

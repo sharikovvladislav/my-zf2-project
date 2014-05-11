@@ -154,7 +154,7 @@ $settings = array(
      *                  If callback used, it will receive the identity as the param
      *
      */
-    //'login_redirect_route' => 'zfcuser',
+    'login_redirect_route' => 'zfcadmin',
 
     /**
      * Logout Redirect Route
@@ -164,7 +164,7 @@ $settings = array(
      * Default value: 'zfcuser/login'
      * Accepted values: A valid route name within your application
      */
-    //'logout_redirect_route' => 'zfcuser/login',
+    'logout_redirect_route' => 'zfcadmin',
 
     /**
      * Password Security
