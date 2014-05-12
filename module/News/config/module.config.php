@@ -15,7 +15,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'News\Controller\NewsPost' => 'News\Controller\NewsController',
+            'News\Controller\NewsItem' => 'News\Controller\NewsController',
         ),
     ),
     'router' => array(
@@ -29,7 +29,7 @@ return array(
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'News\Controller\NewsPost',
+                        'controller' => 'News\Controller\NewsItem',
                         'action'     => 'index',
                     ),
                 ),

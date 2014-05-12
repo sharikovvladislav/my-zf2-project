@@ -109,7 +109,7 @@ return array(
                     'roles' => array('user'),
                 ),
                 array(
-                    'controller' => 'News\Controller\NewsPost', 
+                    'controller' => 'News\Controller\NewsItem', 
                     'roles' => array('guest'),
                 ),
                 array(

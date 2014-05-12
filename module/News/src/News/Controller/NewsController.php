@@ -12,26 +12,29 @@ class NewsController extends AbstractActionController {
         return new ViewModel();
     }
 
-    public function addAction(){
+    public function addAction() {
         $form = new AddNewsForm();
-        $form->get('submit')->setValue('Add1');
-
+        $form->get('submit')->setValue('Add');
+        
         $request = $this->getRequest();
         if ($request->isPost()) {
+        
             $form->setData($request->getPost());
-            var_dump($form->isValid());
+            //var_dump($form->isValid());
+            //var_dump($form->getMessages()); //error messages
+            //var_dump($form->getInputFilter()->getMessages());
             if ($form->isValid()) {
-                echo "form is valid";
                 $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
-                $blogpost = new NewsItem();
+                $item = new NewsItem();
 
-                $blogpost->exchangeArray($form->getData());
+                $item->exchangeArray($form->getData());
 
-                $blogpost->setCreated(time());
-                $blogpost->setUserId(0);
+                $item->setCreated(time());
+                $item->setUserId(0);
+                $item->setCategoryId(0);
 
-                $objectManager->persist($blogpost);
+                $objectManager->persist($item);
                 $objectManager->flush();
 
                 // Redirect to list of blogposts

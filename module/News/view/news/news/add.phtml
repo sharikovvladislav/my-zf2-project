@@ -11,6 +11,7 @@ $form->prepare();
 
 echo $this->form()->openTag($form);
 echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('security'));
 echo $this->formRow($form->get('title'));
 echo $this->formRow($form->get('text'));
 echo $this->formRow($form->get('state'));

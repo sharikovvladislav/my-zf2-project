@@ -48,5 +48,9 @@ class AddNewsInputFilter extends InputFilter
             'name' => 'state',
             'required' => true,
         ));
+        $this->add(array(
+            'name' => 'security',
+            'required' => false,
+        ));
     }
 }
