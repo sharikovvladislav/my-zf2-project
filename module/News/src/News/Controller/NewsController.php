@@ -9,7 +9,26 @@ use \News\Form\AddNewsForm as AddNewsForm;
 
 class NewsController extends AbstractActionController {
     public function indexAction() {
-        return new ViewModel();
+        
+    }
+    public function listAction() {
+
+        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+        $news = $objectManager
+            ->getRepository('\News\Entity\NewsItem')
+            ->findBy(array(), array('created' => 'DESC'));
+
+        $items = array();
+        foreach ($news as $item) {
+            $items[] = $item->getArrayCopy();
+        }
+
+        $view = new ViewModel(array(
+            'news' => $items,
+        ));
+
+        return $view;
     }
 
     public function addAction() {

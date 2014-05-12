@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
     * An example of how to implement a BlogPost entity.
     *
     * @ORM\Entity
-    * @ORM\Table(name="news")
+    * @ORM\Table(name="News")
     *
     * @author Sharikov Vladislav <sharikov.vladislav@gmail.com>
     */
@@ -46,7 +46,10 @@ class NewsItem {
     /**
     * @var int
     * @ORM\Column(type="integer")
+    * @ORM\ManyToOne(targetEntity="News\Entity\Category")
+    * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
     */
+
     protected $category_id;
     
     /**
@@ -54,13 +57,6 @@ class NewsItem {
     * @ORM\Column(type="integer")
     */
     protected $created;
-
-
-    /**
-    * @var int
-    * @ORM\Column(type="integer", nullable=true)
-    */
-    protected $state;
 
     /**
 * Get id.
@@ -194,27 +190,6 @@ class NewsItem {
         $this->created = $created;
     }
 
-    /**
-    * Get state.
-    *
-    * @return int
-    */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-    * Set state.
-    *
-    * @param int $state
-    *
-    * @return void
-    */
-    public function setState($state)
-    {
-        $this->state = $state;
-    }
 
     /**
     * Helper function.

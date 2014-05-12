@@ -15,62 +15,43 @@ $config = array(
 
 $config['router']['routes']['zfcadmin']['child_routes'] = array(
     'news' => array(
-        'type' => 'literal',
+        'type' => 'Literal',
         'options' => array(
             'route' => '/news',
             'defaults' => array(
                 'controller' => 'News\Controller\NewsItem',
-                'action'     => 'index',
+                'action'     => 'list',
             ),
-            'may_terminate' => true, 
-            'child_routes' => array(
-                'addsome' => array(
-                    'type' => 'literal',
-                    'options' => array(
-                        'route' => '/add',
-                        'defaults' => array(
-                            'controller' => 'News\Controller\NewsItem',
-                            'action'     => 'add',
-                        ),
-                        'may_terminate' => true, 
-                    ),
+        ),
+        'may_terminate' => true, 
+        'child_routes' => array(
+            'add news' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/add',
+                    'defaults' => array(
+                        'controller' => 'News\Controller\NewsItem',
+                        'action'     => 'add',
+                    )
                 ),
+                'may_terminate' => true,
+            ),
+            'add news' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/full[/:id]',
+                    'constraints' => array(
+                        'id'     => '[1-9][0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'News\Controller\NewsItem',
+                        'action'     => 'add',
+                    )
+                ),
+                'may_terminate' => true,
             ),
         ),
     ),
 );
-
-
-/*
-    'router' => array(
-        'routes' => array(
-            'news' => array(
-                'type'    => 'segment',
-                'options' => array(
-                    'route'    => '/news[/][:action][/:id]',
-                    'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'News\Controller\NewsItem',
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
-            'add news item' => array(
-                'type'    => 'segment',
-                'options' => array(
-                    'route'    => '/news/add',
-                    'defaults' => array(
-                        'controller' => 'News\Controller\NewsItem',
-                        'action'     => 'add',
-                    ),
-                ),
-            ),
-        ),
-    ),
-
-*/
 
 return $config;
