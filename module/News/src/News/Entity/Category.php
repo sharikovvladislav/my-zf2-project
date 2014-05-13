@@ -31,20 +31,26 @@ class Category {
     */
     protected $name;
 
-    public function getId()
-    {
-        return $this->id;
-    }
-    
     /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Item", mappedBy="category")     
      */
-    private $items;
-
+    protected $items;
+    
+    /**
+    * @var integer
+    * @ORM\Column(type="integer", nullable=false)
+    */
+    protected $visible;
+    
     public function __construct(){
         $this->items = new ArrayCollection();
+    }
+    
+    public function getId()
+    {
+        return $this->id;
     }
     
     /**
