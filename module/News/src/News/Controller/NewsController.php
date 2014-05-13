@@ -5,7 +5,7 @@ namespace News\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use \News\Entity\NewsItem as NewsItem;
-use \News\Form\AddNewsForm as AddNewsForm;
+use \News\Form\AddNewsItemForm as AddNewsItemForm;
 
 class NewsController extends AbstractActionController {
     public function indexAction() {
@@ -32,7 +32,7 @@ class NewsController extends AbstractActionController {
     }
 
     public function addAction() {
-        $form = new AddNewsForm();
+        $form = new AddNewsItemForm();
         $form->get('submit')->setValue('Add');
         
         $request = $this->getRequest();
