@@ -25,7 +25,7 @@ $config['router']['routes']['zfcadmin']['child_routes'] = array(
         ),
         'may_terminate' => true, 
         'child_routes' => array(
-            'add news' => array(
+            'add' => array(
                 'type' => 'literal',
                 'options' => array(
                     'route' => '/add',
@@ -36,7 +36,7 @@ $config['router']['routes']['zfcadmin']['child_routes'] = array(
                 ),
                 'may_terminate' => true,
             ),
-            'full news item' => array(
+            'full' => array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/full[/:id]',
