@@ -113,6 +113,10 @@ return array(
                     'roles' => array('guest'),
                 ),
                 array(
+                    'controller' => 'News\Controller\Category', 
+                    'roles' => array('guest'),
+                ),
+                array(
                     'controller' => 'MyBlog\Controller\BlogPost',
                     'action' => array('index', 'view'),
                     'roles' => array('guest', 'user'),

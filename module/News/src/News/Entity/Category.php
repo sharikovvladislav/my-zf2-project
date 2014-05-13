@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
     * An example of how to implement a BlogPost entity.
     *
     * @ORM\Entity
-    * @ORM\Table(name="Category")
+    * @ORM\Table(name="NewsCategories")
     *
     * @author Sharikov Vladislav <sharikov.vladislav@gmail.com>
     */
@@ -35,7 +35,18 @@ class Category {
     {
         return $this->id;
     }
+    
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="category")     
+     */
+    private $items;
 
+    public function __construct(){
+        $this->items = new ArrayCollection();
+    }
+    
     /**
     * Set id.
     *

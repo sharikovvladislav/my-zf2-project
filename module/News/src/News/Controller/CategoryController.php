@@ -7,9 +7,24 @@ use Zend\View\Model\ViewModel;
 use \News\Entity\NewsItem as NewsItem;
 use \News\Form\AddNewsForm as AddNewsForm;
 
-class NewsController extends AbstractActionController {
+class CategoryController extends AbstractActionController {
     public function indexAction() {
-        
+        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+        $news = $objectManager
+            ->getRepository('\News\Entity\Category')
+            ->findAll();
+        var_dump($news);
+        $items = array();
+        foreach ($news as $item) {
+            $items[] = $item->getArrayCopy();
+        }
+
+        $view = new ViewModel(array(
+            'news' => $items,
+        ));
+
+        return $view;
     }
     public function listAction() {
 

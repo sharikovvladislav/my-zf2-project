@@ -12,11 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
     * An example of how to implement a BlogPost entity.
     *
     * @ORM\Entity
-    * @ORM\Table(name="News")
+    * @ORM\Table(name="NewsItems")
     *
     * @author Sharikov Vladislav <sharikov.vladislav@gmail.com>
     */
-class NewsItem {
+class Item {
     /**
     * @var int
     * @ORM\Id
@@ -39,16 +39,17 @@ class NewsItem {
 
     /**
     * @var int
-    * @ORM\Column(type="integer")
+    * @ORM\ManyToOne(targetEntity="SamUser\Entity\User")
+    * @ORM\JoinColumn(nullable=true)
     */
-    protected $user_id;
+    protected $user;
 
     /**
     * @var int
-    * @ORM\Column(type="integer")
-    * @ORM\ManyToOne(targetEntity="News\Entity\Category")
+    * @ORM\JoinColumn(nullable=true)
+    * @ORM\ManyToOne(targetEntity="Category", inversedBy="items")
     */
-    protected $category_id;
+    protected $category;
     
     /**
     * @var int

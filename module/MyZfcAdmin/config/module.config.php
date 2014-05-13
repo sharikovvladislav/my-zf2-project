@@ -36,7 +36,7 @@ $config['router']['routes']['zfcadmin']['child_routes'] = array(
                 ),
                 'may_terminate' => true,
             ),
-            'add news' => array(
+            'full news item' => array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/full[/:id]',
@@ -49,6 +49,20 @@ $config['router']['routes']['zfcadmin']['child_routes'] = array(
                     )
                 ),
                 'may_terminate' => true,
+            ),
+            'categories' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/category[/][:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'News\Controller\Category',
+                        'action'     => 'index',
+                    ),
+                ),
             ),
         ),
     ),

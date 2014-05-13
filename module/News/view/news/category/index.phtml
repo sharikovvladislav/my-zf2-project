@@ -1,0 +1,13 @@
+<div>
+    <? if(0 == count($this->categories)) : ?>
+        <h2>Новостей нет</h2>
+    <? else: ?>
+        <? foreach($this->categories as $category) : ?>
+            <div>
+                <?=$item['title'];?>
+                <a href="<?=$this->url('categories', array('action'=>'edit', 'id' => $item['id']));?>">edit</a>,
+                <a href="<?=$this->url('categories', array('action'=>'delete', 'id' => $item['id']));?>">delete</a>
+            </div>
+        <? endforeach; ?>
+    <? endif; ?>
+</div>
