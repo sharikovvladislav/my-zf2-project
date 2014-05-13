@@ -40,13 +40,13 @@ class Item {
     /**
     * @var int
     * @ORM\ManyToOne(targetEntity="SamUser\Entity\User")
-    * @ORM\JoinColumn(nullable=true)
+    * @ORM\JoinColumn(nullable=false)
     */
     protected $user;
 
     /**
     * @var int
-    * @ORM\JoinColumn(nullable=true)
+    * @ORM\JoinColumn(nullable=false)
     * @ORM\ManyToOne(targetEntity="Category", inversedBy="items")
     */
     protected $category;
