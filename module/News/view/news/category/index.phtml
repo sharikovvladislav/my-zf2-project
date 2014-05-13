@@ -1,13 +1,24 @@
-<div>
+<? 
+    $title = "Категории";
+    $this->headTitle($title); 
+?>
+<h1><?=$title;?></h1>
+<p>
+    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'add'));?>">Добавить категорию</a>
+</p>
+<table class='table'>
+    <tr><th>Название</th><th>Действия</th></tr>
     <? if(0 == count($this->categories)) : ?>
-        <h2>Новостей нет</h2>
+        <tr><td colspan="2">Категорий еще нет, вы можете <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'add'));?>">добавить новую</a></td></tr>
     <? else: ?>
         <? foreach($this->categories as $category) : ?>
-            <div>
-                <?=$item['title'];?>
-                <a href="<?=$this->url('categories', array('action'=>'edit', 'id' => $item['id']));?>">edit</a>,
-                <a href="<?=$this->url('categories', array('action'=>'delete', 'id' => $item['id']));?>">delete</a>
-            </div>
+            <tr>
+                <td><?=$category['name'];?></td>
+                <td>
+                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'edit', 'id' => $category['id']));?>">edit</a>,
+                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'delete', 'id' => $category['id']));?>">delete</a>
+                </td>
+            </tr>
         <? endforeach; ?>
     <? endif; ?>
-</div>
+</table>
