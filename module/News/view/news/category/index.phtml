@@ -13,7 +13,7 @@
     <? else: ?>
         <? foreach($this->categories as $category) : ?>
             <tr>
-                <td><?=$category['name'];?></td>
+                <td><?=$category['name'];?> <? if($category['visible'] == 0): ?>(новости не видны)<? endif; ?></td>
                 <td>
                     <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'edit', 'id' => $category['id']));?>">edit</a>,
                     <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'delete', 'id' => $category['id']));?>">delete</a>
