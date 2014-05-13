@@ -46,8 +46,7 @@ class NewsItem {
     /**
     * @var int
     * @ORM\Column(type="integer")
-    * @ORM\ManyToOne(targetEntity="News\Entity\Category")
-    * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+    * @ORM\ManyToOne(targetEntity="\News\Entity\Category")
     */
 
     protected $category_id;
