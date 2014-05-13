@@ -11,17 +11,17 @@ class CategoryController extends AbstractActionController {
     public function indexAction() {
         $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
-        $news = $objectManager
+        $categories = $objectManager
             ->getRepository('\News\Entity\Category')
             ->findAll();
-        var_dump($news);
+        var_dump($categories);
         $items = array();
-        foreach ($news as $item) {
-            $items[] = $item->getArrayCopy();
+        foreach ($categories as $category) {
+            $items[] = $category->getArrayCopy();
         }
 
         $view = new ViewModel(array(
-            'news' => $items,
+            'categories' => $items,
         ));
 
         return $view;
