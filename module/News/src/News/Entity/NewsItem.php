@@ -48,7 +48,6 @@ class NewsItem {
     * @ORM\Column(type="integer")
     * @ORM\ManyToOne(targetEntity="News\Entity\Category")
     */
-
     protected $category_id;
     
     /**

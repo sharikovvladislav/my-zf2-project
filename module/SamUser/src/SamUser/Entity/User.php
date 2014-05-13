@@ -17,7 +17,7 @@ use ZfcUser\Entity\UserInterface;
  * An example of how to implement a role aware user entity.
  *
  * @ORM\Entity
- * @ORM\Table(name="users")
+ * @ORM\Table(name="Users")
  *
  * @author Tom Oram <tom@scl.co.uk>
  */
@@ -63,7 +63,7 @@ class User implements UserInterface, ProviderInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @ORM\ManyToMany(targetEntity="SamUser\Entity\Role")
-     * @ORM\JoinTable(name="users_roles",
+     * @ORM\JoinTable(name="Users_Roles",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      * )
