@@ -10,6 +10,7 @@ $config = array(
         'template_path_stack' => array(
             __DIR__ . '/../view'
         ),
+        'base_path' => '/path/'
     ),
 );
 
@@ -19,7 +20,7 @@ $config['router']['routes']['zfcadmin']['child_routes'] = array(
         'options' => array(
             'route' => '/news',
             'defaults' => array(
-                'controller' => 'News\Controller\NewsItem',
+                'controller' => 'News\Controller\Item',
                 'action'     => 'list',
             ),
         ),
@@ -30,7 +31,7 @@ $config['router']['routes']['zfcadmin']['child_routes'] = array(
                 'options' => array(
                     'route' => '/add',
                     'defaults' => array(
-                        'controller' => 'News\Controller\NewsItem',
+                        'controller' => 'News\Controller\Item',
                         'action'     => 'add',
                     )
                 ),
@@ -44,7 +45,7 @@ $config['router']['routes']['zfcadmin']['child_routes'] = array(
                         'id'     => '[1-9][0-9]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'News\Controller\NewsItem',
+                        'controller' => 'News\Controller\Item',
                         'action'     => 'add',
                     )
                 ),

@@ -15,7 +15,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'News\Controller\NewsItem' => 'News\Controller\NewsController',
+            'News\Controller\Item' => 'News\Controller\NewsController',
             'News\Controller\Category' => 'News\Controller\CategoryController',
         ),
     ),
@@ -30,7 +30,7 @@ return array(
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'News\Controller\NewsItem',
+                        'controller' => 'News\Controller\Item',
                         'action'     => 'index',
                     ),
                 ),
