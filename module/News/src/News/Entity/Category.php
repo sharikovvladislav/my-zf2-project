@@ -38,12 +38,6 @@ class Category {
      */
     protected $items;
     
-    /**
-    * @var integer
-    * @ORM\Column(type="integer", nullable=false)
-    */
-    protected $visible;
-    
     public function __construct(){
         $this->items = new ArrayCollection();
     }

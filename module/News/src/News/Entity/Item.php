@@ -52,28 +52,44 @@ class Item {
     protected $category;
     
     /**
+    * @var integer
+    * @ORM\Column(type="integer", nullable=false)
+    */
+    protected $visible;
+    
+    /**
     * @var int
     * @ORM\Column(type="integer")
     */
     protected $created;
 
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+    }
+    
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+    
     /**
-* Get id.
-*
-* @return int
-*/
+    * Get id.
+    *
+    * @return int
+    */
     public function getId()
     {
         return $this->id;
     }
 
     /**
-* Set id.
-*
-* @param int $id
-*
-* @return void
-*/
+    * Set id.
+    *
+    * @param int $id
+    *
+    * @return void
+    */
     public function setId($id)
     {
         $this->id = (int)$id;
@@ -130,7 +146,7 @@ class Item {
     */
     public function getUserId()
     {
-        return $this->user_id;
+        return $this->user;
     }
 
     /**
@@ -142,7 +158,7 @@ class Item {
     */
     public function setUserId($userId)
     {
-        $this->user_id = $userId;
+        $this->user = $userId;
     }
 
     /**
@@ -152,7 +168,7 @@ class Item {
     */
     public function getCategoryId()
     {
-        return $this->category_id;
+        return $this->category;
     }
 
     /**
@@ -164,7 +180,7 @@ class Item {
     */
     public function setCategoryId($category_id)
     {
-        $this->category_id = $category_id;
+        $this->category = $category_id;
     }
     
     /**
