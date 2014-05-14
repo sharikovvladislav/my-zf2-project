@@ -1,5 +1,7 @@
-ZendSkeletonApplication
+ZendFramework Project
 =======================
 
-Introduction
+TODO List
 ------------
+1. Edit action, NewsController
+~~2. Edit action, CategoryController~~
