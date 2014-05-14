@@ -35,13 +35,6 @@ class AddCategoryForm extends Form
             ),
         ));
         $this->add(array(
-            'name' => 'visible',
-            'type' => 'Checkbox',
-            'options' => array(
-                'label' => 'скрывать новости в категории',
-            ),
-        ));
-        $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
             'attributes' => array(

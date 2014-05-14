@@ -1,0 +1,14 @@
+<?php
+$title = 'Удаление новости';
+$this->headTitle($title);
+
+?>
+<h1><?=$this->escapeHtml($title); ?></h1>
+<? if(true == $this->result): ?>
+    <h3>Новость с заголовком "<?=$this->title;?>" успешно удалена!</h3>
+<? else: ?>
+    <h3>Такой новости не существует</h3>
+<? endif; ?>
+<p>
+    <a href="<?=$this->url('zfcadmin/news', array('action'=>'index'));?>">К списку новостей</a>
+</p>

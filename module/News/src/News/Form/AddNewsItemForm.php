@@ -39,6 +39,13 @@ class AddNewsItemForm extends Form
             ),
         ));
         $this->add(array(
+            'name' => 'category',
+            'type' => 'select',
+            'options' => array(
+                'label' => 'Категория: ',
+            ),
+        ));
+        $this->add(array(
             'name' => 'text',
             'type' => 'Textarea',
             'options' => array(
@@ -46,10 +53,10 @@ class AddNewsItemForm extends Form
             ),
         ));
         $this->add(array(
-            'name' => 'state',
+            'name' => 'visible',
             'type' => 'Checkbox',
             'options' => array(
-                'label' => 'published',
+                'label' => 'скрытая',
             ),
         ));
         $this->add(array(

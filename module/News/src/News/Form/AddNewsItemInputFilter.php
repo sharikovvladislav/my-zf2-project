@@ -45,10 +45,6 @@ class AddNewsItemInputFilter extends InputFilter
             ),
         ));
         $this->add(array(
-            'name' => 'state',
-            'required' => true,
-        ));
-        $this->add(array(
             'name' => 'security',
             'required' => false,
         ));

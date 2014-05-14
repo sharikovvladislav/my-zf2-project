@@ -28,8 +28,7 @@ class CategoryController extends AbstractActionController {
 
     public function addAction() {
         $form = new AddCategoryForm();
-        $form->get('visible')->setCheckedValue(0);
-        $form->get('visible')->setUncheckedValue(1);
+
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());

@@ -1,14 +1,38 @@
-<div>
+<? 
+    $title = "Список новостей";
+    $this->headTitle($title); 
+?>
+<h1><?=$title;?></h1>
+<p>
+    <a href="<?=$this->url('zfcadmin/news/add', array('action'=>'add'));?>">Добавить новость</a>
+</p>
+<table class='table'>
     <? if(0 == count($this->news)) : ?>
-        <h2>Новостей нет</h2>
+        <tr><td colspan="6">Новостей нет. <a href="">Добавить новость</a></td></tr>
     <? else: ?>
+        <tr><th>Название</th><th>Категория</th><th>Добавил</th><th>Статус</th><th>Добавлено</th><th>Действия</th></tr>
         <? foreach($this->news as $item) : ?>
-            <div>
-                <a href="<?=$this->url('news', array('action'=>'full', 'id' => $item['id']));?>"><?=$item['title'];?></a>
-                [ <?=date('d.m.Y в H:i', $item['created']); ?>],
-                <a href="<?=$this->url('news', array('action'=>'edit', 'id' => $item['id']));?>">edit</a>,
-                <a href="<?=$this->url('news', array('action'=>'delete', 'id' => $item['id']));?>">delete</a>
-            </div>
+            <tr>
+                <td>
+                    <a href="<?=$this->url('news', array('action'=>'full', 'id' => $item['id']));?>"><?=$item['title'];?></a> 
+                </td>
+                <td>
+                    <?=$item['category']->getName();?>
+                </td>
+                <td>
+                    <?=$item['user']->getDisplayName();?>
+                </td>
+                <td>
+                     <? if(0 == $item['visible']): ?>Скрыта<? else: ?>Показана<? endif ?>
+                </td>
+                <td>
+                    <?=date('d.m.Y в H:i', $item['created']); ?>
+                </td>
+                <td>
+                    <a href="<?=$this->url('news', array('action'=>'edit', 'id' => $item['id']));?>">изменить</a>,
+                    <a href="<?=$this->url('news', array('action'=>'delete', 'id' => $item['id']));?>">удалить</a>
+                </td>
+            </tr>
         <? endforeach; ?>
     <? endif; ?>
-</div>
+</table>
