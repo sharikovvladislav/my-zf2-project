@@ -1,0 +1,14 @@
+<?php
+$title = 'Удаление категории';
+$this->headTitle($title);
+
+?>
+<h1><?=$this->escapeHtml($title); ?></h1>
+<? if(true == $this->result): ?>
+    <h3>Категория "<?=$this->categoryName;?>" успешно удалена!</h3>
+<? else: ?>
+    <h3>Такой категории не существует</h3>
+<? endif; ?>
+<p>
+    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'index'));?>">К списку категорий</a>
+</p>
