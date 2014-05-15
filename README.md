@@ -6,6 +6,7 @@ TODO List
 + Forms messages
 + `Edit` action, `NewsController`
 + `Edit` action, `CategoryController`
++ Fix `News` routes
 + Find and install News Editor
 + Forms styles
 + Improve delete links
