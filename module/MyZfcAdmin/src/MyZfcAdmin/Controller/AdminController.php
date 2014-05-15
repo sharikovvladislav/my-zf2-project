@@ -49,7 +49,7 @@ class AdminController extends \ZfcAdmin\Controller\AdminController
 {
     public function indexAction() {
         if (!$this->zfcUserAuthentication()->hasIdentity()) {
-            return $this->redirect()->toRoute('zfcadmin', array('action'=>'login'));
+            return $this->redirect()->toRoute('zfcadmin/login');
         }
         return new ViewModel();
     }
@@ -57,9 +57,11 @@ class AdminController extends \ZfcAdmin\Controller\AdminController
         if ($this->zfcUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute('zfcadmin');
         }
-        $this->layout('layout/login');
+        $layout = $this->layout();
+        $layout->setTemplate('layout/login');
         return new ViewModel();
     }
+    
     public function logoutAction() {
         return $this->redirect()->toRoute('zfcuser/logout');
     }
