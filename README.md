@@ -3,7 +3,9 @@ ZendFramework Project
 
 TODO List
 ------------
-+ ~~Forms messages~~
+item | deadline | done
+~~Forms messages~~ | — | 16.05.2014
+
 + Fix interacting `ZfcAdmin` and `ZfcUser` (routes)
 + `Edit` action, `NewsController`
 + `Edit` action, `CategoryController`
