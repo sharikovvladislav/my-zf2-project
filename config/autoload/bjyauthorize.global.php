@@ -95,14 +95,18 @@ return array(
                     'action' => array('logout'),
                     'roles' => array('user'),
                 ),
-
                 array(
                     'controller' => 'Application\Controller\Index', 
                     'roles' => array()
                 ),
                 array(
                     'controller' => 'ZfcAdmin\Controller\AdminController', 
-                    'roles' => array()
+                    'roles' => array('guest'),
+                ),
+                array(
+                    'controller' => 'ZfcAdmin\Controller\AdminController', 
+                    'action' => array('login'),
+                    'roles' => array('guest'),
                 ),
                 array(
                     'controller' => 'DoctrineORMModule\Yuml\YumlController', 
@@ -113,18 +117,12 @@ return array(
                     'roles' => array('guest'),
                 ),
                 array(
+                    'controller' => 'News\Controller\Item', 
+                    'action' => array('add', 'list', 'delete', 'edit'),
+                    'roles' => array('user'),
+                ),
+                array(
                     'controller' => 'News\Controller\Category', 
-                    'roles' => array('guest'),
-                ),
-                array(
-                    'controller' => 'MyBlog\Controller\BlogPost',
-                    'action' => array('index', 'view'),
-                    'roles' => array('guest', 'user'),
-                ),
-
-                array(
-                    'controller' => 'MyBlog\Controller\BlogPost',
-                    'action' => array('add', 'edit', 'delete'),
                     'roles' => array('user'),
                 ),
             ),
