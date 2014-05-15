@@ -38,14 +38,19 @@ class Module implements
         /* @var $sm \Zend\ServiceManager\ServiceLocatorInterface */
         $serviceManager = $app->getServiceManager();
         $config         = $serviceManager->get('BjyAuthorize\Config');
-        $strategy       = $serviceManager->get($config['unauthorized_strategy']);
+        //$strategy       = $serviceManager->get($config['unauthorized_strategy']);
         $guards         = $serviceManager->get('BjyAuthorize\Guards');
 
+        $strategy = new \BjyAuthorize\View\RedirectionStrategy();
+        
+        // eventually set the route name (default is ZfcUser's login route)
+        //$strategy->setRedirectRoute('news');
+
+        //$app->getEventManager()->attach($strategy);
+        
         foreach ($guards as $guard) {
             $app->getEventManager()->attach($guard);
         }
-
-        $app->getEventManager()->attach($strategy);
     }
 
     /**
