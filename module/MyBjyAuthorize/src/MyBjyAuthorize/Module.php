@@ -46,7 +46,7 @@ class Module implements
         // eventually set the route name (default is ZfcUser's login route)
         //$strategy->setRedirectRoute('news');
 
-        //$app->getEventManager()->attach($strategy);
+        $app->getEventManager()->attach($strategy);
         
         foreach ($guards as $guard) {
             $app->getEventManager()->attach($guard);
