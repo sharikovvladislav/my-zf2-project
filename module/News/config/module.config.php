@@ -42,4 +42,9 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+    'view_helpers' => array(
+        'invokables' => array(
+            'showMessages' => 'News\View\Helper\ShowMessages',
+        ),
+    ),
 );

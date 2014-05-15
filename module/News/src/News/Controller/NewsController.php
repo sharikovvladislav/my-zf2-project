@@ -79,7 +79,8 @@ class NewsController extends AbstractActionController {
                 
                 $objectManager->persist($item);
                 $objectManager->flush();
-
+                $message = 'Новость добавлена';
+                $this->flashMessenger()->addMessage($message);
                 // Redirect to list of blogposts
                 return $this->redirect()->toRoute('zfcadmin/news');
             }
