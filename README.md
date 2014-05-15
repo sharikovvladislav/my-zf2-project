@@ -4,6 +4,7 @@ ZendFramework Project
 TODO List
 ------------
 + Forms messages
++ Fix interacting ZfcAdmin and ZfcUser (routes)
 + `Edit` action, `NewsController`
 + `Edit` action, `CategoryController`
 + Fix `News` routes
