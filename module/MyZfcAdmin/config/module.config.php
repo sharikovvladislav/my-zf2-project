@@ -10,7 +10,6 @@ $config = array(
         'template_path_stack' => array(
             __DIR__ . '/../view'
         ),
-        'base_path' => '/path/'
     ),
 );
 
