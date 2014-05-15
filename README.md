@@ -1,12 +1,10 @@
 ZendFramework Project
 =======================
 
-TODO List
+TODO List (todo item, done date)
 ------------
-item | deadline | done
----- | ---------|------
-~~Forms messages~~ | — | 16.05.2014
 
++ ~~Forms messages~~ | 16.05.2014
 + Fix interacting `ZfcAdmin` and `ZfcUser` (routes)
 + `Edit` action, `NewsController`
 + `Edit` action, `CategoryController`
