@@ -43,41 +43,24 @@
 namespace MyZfcAdmin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
-/**
- * Placeholder controller
- *
- * This controller is just here in case you have not defined a controller
- * behind the 'admin' route yourself. If you haven't, you would otherwise
- * get a 404: Page not found error.
- *
- * If you want to override this controller (and action), create a module and
- * put this in the module configuration:
- *
- * <code>
- * <?php
- * return array(
- *     'router' => array(
- *         'routes' => array(
- *             'zfcadmin' => array(
- *                 'options' => array(
- *                     'defaults' => array(
- *                         'controller' => 'MyFoo\Controller\OtherController',
- *                         'action'     => 'custom',
- *                     ),
- *                 ),
- *             ),
- *         ),
- *     ),
- * );
- * </code>
- *
- * @package    ZfcAdmin
- * @subpackage Controller
- */
 class AdminController extends \ZfcAdmin\Controller\AdminController
 {
     public function indexAction() {
-        echo "overwrited!";
+        if (!$this->zfcUserAuthentication()->hasIdentity()) {
+            return $this->redirect()->toRoute('zfcadmin', array('action'=>'login'));
+        }
+        return new ViewModel();
+    }
+    public function loginAction() {
+        if ($this->zfcUserAuthentication()->hasIdentity()) {
+            return $this->redirect()->toRoute('zfcadmin');
+        }
+        $this->layout('layout/login');
+        return new ViewModel();
+    }
+    public function logoutAction() {
+        return $this->redirect()->toRoute('zfcuser/logout');
     }
 }
