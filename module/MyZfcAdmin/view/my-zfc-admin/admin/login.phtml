@@ -1,0 +1,5 @@
+<?php if(!$this->zfcUserIdentity()): ?>
+   <?php echo $this->zfcUserLoginWidget(array('redirect'=>'/admin')); ?>
+<?php else: ?>
+    Кажется, вы уже вошли, <?php echo $this->zfcUserIdentity()->getDisplayname(); ?>!
+<?php endif?>
