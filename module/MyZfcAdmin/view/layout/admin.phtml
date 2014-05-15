@@ -31,6 +31,8 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="<?php echo $this->url('zfcadmin') ?>">ZfcAdmin</a>
+          <a class="brand" href="<?php echo $this->url('zfcadmin/news') ?>">Новости</a>
+          <a class="brand" href="<?php echo $this->url('zfcadmin', array('action'=>'logout')); ?>">Выход</a>
           <div class="nav-collapse">
             <?php echo $this->navigation('admin_navigation')
                             ->menu()
