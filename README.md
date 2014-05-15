@@ -11,7 +11,6 @@ TODO List
 + Improve delete links
   + Adding popup's confirm to all delete links
   + Ajax requests on delete link click
-+ 
 + Users part of `News` module
 + Module `Departments`
 + Front-end
