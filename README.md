@@ -3,7 +3,7 @@ ZendFramework Project
 
 TODO List
 ------------
-+ Forms messages
++ ~~Forms messages~~
 + Fix interacting `ZfcAdmin` and `ZfcUser` (routes)
 + `Edit` action, `NewsController`
 + `Edit` action, `CategoryController`
