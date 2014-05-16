@@ -7,7 +7,7 @@ TODO List (todo item, done date)
 + ~~Forms messages~~ | 16.05.2014 01.10
 + ~~Fix interacting `ZfcAdmin` and `ZfcUser` (routes)~~ | 16.05.2014 03.44
 + Fix layout on login page (`/admin/login`) 
-+ `Edit` action, `NewsController`
++ ~~`Edit` action, `NewsController`~~ | 17.05.2014 00.57
 + `Edit` action, `CategoryController`
 + Fix `News` routes
 + Users part of `News` module
