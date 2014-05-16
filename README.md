@@ -9,7 +9,6 @@ TODO List (todo item, done date)
 + Fix layout on login page (`/admin/login`) 
 + ~~`Edit` action, `NewsController`~~ | 17.05.2014 00.57
 + `Edit` action, `CategoryController`
-+ Fix `News` routes
 + Users part of `News` module
 + User management in admin panel
 + Module `Departments`
