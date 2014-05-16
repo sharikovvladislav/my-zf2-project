@@ -114,7 +114,7 @@ return array(
                 ),
                 array(
                     'controller' => 'News\Controller\Item', 
-                    'roles' => array('guest'),
+                    'roles' => array('user'),
                 ),
                 array(
                     'controller' => 'News\Controller\Item', 
