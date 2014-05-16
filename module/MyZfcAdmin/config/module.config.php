@@ -88,6 +88,34 @@ $config['router']['routes']['zfcadmin']['child_routes'] = array(
                 ),
                 'may_terminate' => true,
             ),
+            'edit' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/edit[/:id]',
+                    'constraints' => array(
+                        'id'     => '[1-9][0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'News\Controller\Item',
+                        'action'     => 'edit',
+                    )
+                ),
+                'may_terminate' => true,
+            ),
+            'delete' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/delete[/:id]',
+                    'constraints' => array(
+                        'id'     => '[1-9][0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'News\Controller\Item',
+                        'action'     => 'delete',
+                    )
+                ),
+                'may_terminate' => true,
+            ),
             'categories' => array(
                 'type'    => 'segment',
                 'options' => array(

@@ -2,7 +2,7 @@
     $title = "Список новостей";
     $this->headTitle($title); 
 ?>
-<?//=$this->showMessages();?>
+<?=$this->showMessages();?>
 <h1><?=$title;?></h1>
 <p>
     <a href="<?=$this->url('zfcadmin/news/add', array('action'=>'add'));?>">Добавить новость</a>
@@ -30,8 +30,8 @@
                     <?=date('d.m.Y в H:i', $item['created']); ?>
                 </td>
                 <td>
-                    <a href="<?=$this->url('news', array('action'=>'edit', 'id' => $item['id']));?>">изменить</a>,
-                    <a href="<?=$this->url('news', array('action'=>'delete', 'id' => $item['id']));?>">удалить</a>
+                    <a href="<?=$this->url('zfcadmin/news/edit', array('id' => $item['id']));?>">изменить</a>,
+                    <a href="<?=$this->url('zfcadmin/news/delete', array('id' => $item['id']));?>">удалить</a>
                 </td>
             </tr>
         <? endforeach; ?>

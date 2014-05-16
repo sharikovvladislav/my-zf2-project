@@ -2,6 +2,7 @@
     $title = "Категории";
     $this->headTitle($title); 
 ?>
+<?=$this->showMessages();?>
 <h1><?=$title;?></h1>
 <p>
     <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'add'));?>">Добавить категорию</a>
@@ -13,10 +14,10 @@
     <? else: ?>
         <? foreach($this->categories as $category) : ?>
             <tr>
-                <td><?=$category['name'];?> <? if($category['visible'] == 0): ?>(новости не видны)<? endif; ?></td>
+                <td><?=$category['name'];?></td>
                 <td>
-                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'edit', 'id' => $category['id']));?>">edit</a>,
-                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'delete', 'id' => $category['id']));?>">delete</a>
+                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'edit', 'id' => $category['id']));?>">изменить</a>,
+                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'delete', 'id' => $category['id']));?>">удалить</a>
                 </td>
             </tr>
         <? endforeach; ?>

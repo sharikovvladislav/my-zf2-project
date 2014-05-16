@@ -5,7 +5,7 @@ namespace News\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use \News\Entity\Category as Category;
-use \News\Form\AddCategoryForm as AddCategoryForm;
+use \News\Form\CategoryForm as CategoryForm;
 
 class CategoryController extends AbstractActionController {
     public function indexAction() {
@@ -27,7 +27,7 @@ class CategoryController extends AbstractActionController {
     }
 
     public function addAction() {
-        $form = new AddCategoryForm();
+        $form = new CategoryForm();
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -51,24 +51,29 @@ class CategoryController extends AbstractActionController {
 
     public function deleteAction() {
         $id = (int)$this->params('id');
+
+        if(!$id) {
+            return $this->redirect()->toRoute('zfcadmin/news/categories');
+        }
+        
         $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $category = $entityManager
             ->getRepository('\News\Entity\Category')
             ->findOneById($id);
         
-        if(isset($category)) {
-            $result = array(
-                'result' => true,
-                'categoryName' => $category->getName(),
-            );
-            
-            $entityManager->remove($category);
-            $entityManager->flush();
-        } else {
-            $result = array(
-                'result' => false,
-            );
+        if (!$category) {
+            $this->flashMessenger()->addErrorMessage(sprintf('Категория с идентификатором "%s" не найдена', $id));
+            return $this->redirect()->toRoute('zfcadmin/news/categories');
         }
+        
+        $result = array(
+            'result' => true,
+            'categoryName' => $category->getName(),
+        );
+        
+        $entityManager->remove($category);
+        $entityManager->flush();
+            
         $view = new ViewModel($result);
         return $view;
     }

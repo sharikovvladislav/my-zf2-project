@@ -5,7 +5,7 @@ namespace News\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use \News\Entity\Item as Item;
-use \News\Form\AddNewsItemForm as AddNewsItemForm;
+use \News\Form\NewsItemForm as NewsItemForm;
 
 class NewsController extends AbstractActionController {
     public function indexAction() {
@@ -32,12 +32,12 @@ class NewsController extends AbstractActionController {
     }
 
     public function addAction() {
-        $form = new AddNewsItemForm();
+        $form = new NewsItemForm();
         
         $form->get('visible')->setCheckedValue(0);
         $form->get('visible')->setUncheckedValue(1);
         
-        $form->get('submit')->setValue('Add');
+        $form->get('submit')->setValue('Добавить');
         
         $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $categories = $objectManager
@@ -53,9 +53,7 @@ class NewsController extends AbstractActionController {
         if ($request->isPost()) {
         
             $form->setData($request->getPost());
-            //var_dump($form->isValid());
-            //var_dump($form->getMessages()); //error messages
-            //var_dump($form->getInputFilter()->getMessages());
+
             if ($form->isValid()) {
                 $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
                                     
@@ -81,7 +79,7 @@ class NewsController extends AbstractActionController {
                 $objectManager->flush();
                 $message = 'Новость добавлена';
                 $this->flashMessenger()->addMessage($message);
-                // Redirect to list of blogposts
+                // Redirect to list of items
                 return $this->redirect()->toRoute('zfcadmin/news');
             }
         }
@@ -93,29 +91,108 @@ class NewsController extends AbstractActionController {
 
     public function deleteAction() {
         $id = (int)$this->params('id');
+        if(!$id) {
+            return $this->redirect()->toRoute('zfcadmin/news');
+        }
         $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $item = $entityManager
             ->getRepository('\News\Entity\Item')
             ->find($id);
         
-        if(isset($item)) {
-            $result = array(
-                'result' => true,
-                'title' => $item->getTitle(),
-            );
-            
-            $entityManager->remove($item);
-            $entityManager->flush();
-        } else {
-            $result = array(
-                'result' => false,
-            );
+        if (!$item) {
+            $this->flashMessenger()->addErrorMessage(sprintf('Новость с идентификатором "%s" не найдена', $id));
+            return $this->redirect()->toRoute('zfcadmin/news');
         }
+        
+        $result = array(
+            'result' => true,
+            'title' => $item->getTitle(),
+        );
+        
+        $entityManager->remove($item);
+        $entityManager->flush();
+
         $view = new ViewModel($result);
         return $view;
     }
 
-    public function editAction(){
-        return new ViewModel();
+    public function editAction() {
+        $form = new NewsItemForm();
+        
+        $form->get('visible')->setCheckedValue(0);
+        $form->get('visible')->setUncheckedValue(1);
+        
+        $form->get('submit')->setValue('Изменить');
+        
+        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        $categories = $objectManager
+            ->getRepository('\News\Entity\Category')
+            ->findAll();
+        $items = array();
+        foreach ($categories as $item) {
+            $items[$item->getId()] = $item->getName();
+        }
+        $form->get('category')->setValueOptions($items);
+        
+        //handling request
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $data = $form->getData();
+                
+                $itemId = $data['id'];
+                
+                try {
+                    $item = $objectManager->find('\News\Entity\Item', $itemId);
+                }
+                catch (\Exception $ex) {
+                    return $this->redirect()->toRoute('zfcadmin/news');
+                }
+                $created = $item->getCreated();
+                $item->exchangeArray($form->getData());
+                $item->setCreated($created);
+                $categoryId = $data['category'];
+                $category = $objectManager
+                    ->getRepository('\News\Entity\Category')
+                    ->find($categoryId);
+                $item->setCategoryId($category);
+                
+                $objectManager->persist($item);
+                $objectManager->flush();
+
+                $message = 'Новость изменена';
+                $this->flashMessenger()->addMessage($message);
+                // Redirect to list of items
+                return $this->redirect()->toRoute('zfcadmin/news');
+            } else {
+                $message = 'Ошибка при изменении новости';
+                $this->flashMessenger()->addErrorMessage($message);
+            }
+        } else {
+            $id = (int)$this->params('id');
+            if(!$id) {
+                return $this->redirect()->toRoute('zfcadmin/news');
+            }
+
+            $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+            $item = $objectManager
+                ->getRepository('\News\Entity\Item')
+                ->findOneBy(array('id' => $id));
+
+            if (!$item) {
+                $this->flashMessenger()->addErrorMessage(sprintf('Новость с идентификатором "%s" не найдена', $id));
+                return $this->redirect()->toRoute('zfcadmin/news');
+            }
+
+            // Fill form data.
+            $form->bind($item);
+            return array('form' => $form);
+        }
+        
+        return array(
+            'form' => $form
+        );
     }
 }
