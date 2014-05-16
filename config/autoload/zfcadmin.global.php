@@ -16,7 +16,7 @@ $settings = array(
      *
      * Accepted is true or false
      */
-    //'use_admin_layout' => true,
+    'use_admin_layout' => true,
 
     /**
      * Layout template for ZfcAdmin
@@ -26,7 +26,7 @@ $settings = array(
      *
      * Accepted is a string that resolves to a view script
      */
-    //'admin_layout_template' => 'layout/admin',
+    'admin_layout_template' => 'layout/admin',
 
     /**
      * End of ZfcAdmin configuration
