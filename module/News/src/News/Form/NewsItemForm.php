@@ -4,15 +4,15 @@ namespace News\Form;
 use Zend\Form\Form;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
-use \News\Form\AddNewsItemInputFilter as AddNewsItemInputFilter;
+use \News\Form\NewsItemInputFilter as NewsItemInputFilter;
 
-class AddNewsItemForm extends Form
+class NewsItemForm extends Form
 {
-    public function __construct($name = null)
-    {
-        parent::__construct('newsAdd');
+    public function __construct($name = null) {
+        parent::__construct('news');
         $this->setAttribute('method', 'post');
-        $this->setInputFilter(new AddNewsItemInputFilter());
+        $this->setAttribute('action', '');
+        $this->setInputFilter(new NewsItemInputFilter());
         $this->add(array(
             'name' => 'security',
             'type' => 'Zend\Form\Element\Csrf',

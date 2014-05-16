@@ -5,7 +5,7 @@ namespace News\Form;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 
-class AddNewsItemInputFilter extends InputFilter
+class NewsItemInputFilter extends InputFilter
 {
     public function __construct()
     {
