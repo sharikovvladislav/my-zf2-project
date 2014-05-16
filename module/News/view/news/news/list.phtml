@@ -18,10 +18,10 @@
                     <a href="<?=$this->url('news', array('action'=>'full', 'id' => $item['id']));?>"><?=$item['title'];?></a> 
                 </td>
                 <td>
-                    <?=$item['category']->getName();?>
+                    <?=$item['category'];?>
                 </td>
                 <td>
-                    <?=$item['user']->getDisplayName();?>
+                    <?=$item['user'];?>
                 </td>
                 <td>
                      <? if(0 == $item['visible']): ?>Скрыта<? else: ?>Показана<? endif ?>

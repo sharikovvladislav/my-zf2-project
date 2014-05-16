@@ -21,7 +21,11 @@ class NewsController extends AbstractActionController {
 
         $items = array();
         foreach ($news as $item) {
-            $items[] = $item->getArrayCopy();
+            $buffer = $item->getArrayCopy();
+            // getting data from model
+            $buffer['category'] = $buffer['category']->getName();
+            $buffer['user'] = $buffer['user']->getDisplayName();
+            $items[] = $buffer;
         }
 
         $view = new ViewModel(array(
