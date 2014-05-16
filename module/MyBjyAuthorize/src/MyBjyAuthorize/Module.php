@@ -44,7 +44,7 @@ class Module implements
         $strategy = new \BjyAuthorize\View\RedirectionStrategy();
         
         // eventually set the route name (default is ZfcUser's login route)
-        //$strategy->setRedirectRoute('news');
+        $strategy->setRedirectRoute('zfcadmin/login');
 
         $app->getEventManager()->attach($strategy);
         
