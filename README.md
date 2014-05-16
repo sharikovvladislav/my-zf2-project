@@ -10,15 +10,16 @@ TODO List (todo item, done date)
 + `Edit` action, `NewsController`
 + `Edit` action, `CategoryController`
 + Fix `News` routes
-+ Find and install News Editor
-+ Forms styles
-+ Improve delete links
-  + Adding popup's confirm to all delete links
-  + Ajax requests on delete link click
 + Users part of `News` module
++ User management in admin panel
 + Module `Departments`
 + Front-end
   + Admin part
     + Breadcrumb
   + User part
   + Ajax forms
++ Find and install News Editor
++ Forms styles
++ Improve delete links
+  + Adding popup's confirm to all delete links
+  + Ajax requests on delete link click
