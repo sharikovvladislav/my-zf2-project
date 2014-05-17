@@ -10,6 +10,10 @@ TODO List (todo item, done date)
 + ~~`Edit` action, `NewsController`~~ | 17.05.2014 00.57
 + ~~`Edit` action, `CategoryController`~~ | 18.05.2014 03.13
 + Users part of `News` module
+ + Full news
+ + `Like`'s 
+ + List of news
+ + News by category
 + User management in admin panel
 + Module `Departments`
 + Front-end
