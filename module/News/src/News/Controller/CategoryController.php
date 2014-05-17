@@ -78,7 +78,66 @@ class CategoryController extends AbstractActionController {
         return $view;
     }
 
-    public function editAction(){
-        return new ViewModel();
+    public function editAction() {
+        $form = new CategoryForm();
+        
+        $form->get('submit')->setValue('Изменить');
+        
+        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        
+        //handling request
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $data = $form->getData();
+                
+                $categoryId = $data['id'];
+                
+                try {
+                    $item = $objectManager->find('\News\Entity\Category', $categoryId);
+                }
+                catch (\Exception $ex) {
+                    return $this->redirect()->toRoute('zfcadmin/news/categories');
+                }
+
+                $item->exchangeArray($form->getData());
+                
+                $objectManager->persist($item);
+                $objectManager->flush();
+
+                $message = 'Категория изменена';
+                $this->flashMessenger()->addMessage($message);
+                // Redirect to list of items
+                return $this->redirect()->toRoute('zfcadmin/news/categories');
+            } else {
+                $message = 'Ошибка при изменении категории';
+                $this->flashMessenger()->addErrorMessage($message);
+            }
+        } else {
+            $id = (int)$this->params('id');
+            if(!$id) {
+                return $this->redirect()->toRoute('zfcadmin/news/categories');
+            }
+
+            $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+            $item = $objectManager
+                ->getRepository('\News\Entity\Category')
+                ->findOneBy(array('id' => $id));
+
+            if (!$item) {
+                $this->flashMessenger()->addErrorMessage(sprintf('Категория с идентификатором "%s" не найдена', $id));
+                return $this->redirect()->toRoute('zfcadmin/news/categories');
+            }
+
+            // Fill form data.
+            $form->bind($item);
+            return array('form' => $form);
+        }
+        
+        return array(
+            'form' => $form
+        );
     }
 }
