@@ -17,7 +17,7 @@ class AdminController extends \ZfcAdmin\Controller\AdminController
         if ($this->zfcUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute('zfcadmin');
         }
-        $this->layout('layout/login');
+        // layout is changed in Module.php
         return new ViewModel();
     }
     
