@@ -9,10 +9,14 @@ TODO List (todo item, done date)
 + ~~Fix layout on login page (`/admin/login`)~~ | 18.05.2014 01.35
 + ~~`Edit` action, `NewsController`~~ | 17.05.2014 00.57
 + ~~`Edit` action, `CategoryController`~~ | 18.05.2014 03.13
++ Pagination
+ + News `list` action
+ + Categories `index` action
+ + News `index` action
 + Users part of `News` module
- + Full news
+ + ~~Full news~~  | 18.05.2014 22.00
  + `Like`'s 
- + List of news
+ + ~~List of news~~ | 18.05.2014 22.00
  + News by category
 + User management in admin panel
 + Module `Departments`
