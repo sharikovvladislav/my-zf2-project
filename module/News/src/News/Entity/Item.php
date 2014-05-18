@@ -144,7 +144,7 @@ class Item {
     *
     * @return int
     */
-    public function getUserId()
+    public function getUser()
     {
         return $this->user;
     }
@@ -156,7 +156,7 @@ class Item {
     *
     * @return void
     */
-    public function setUserId($userId)
+    public function setUser($userId)
     {
         $this->user = $userId;
     }
@@ -166,7 +166,7 @@ class Item {
     *
     * @return int
     */
-    public function getCategoryId()
+    public function getCategory()
     {
         return $this->category;
     }
@@ -178,7 +178,7 @@ class Item {
     *
     * @return void
     */
-    public function setCategoryId($category_id)
+    public function setCategory($category_id)
     {
         $this->category = $category_id;
     }
