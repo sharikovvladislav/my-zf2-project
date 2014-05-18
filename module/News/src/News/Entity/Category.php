@@ -38,8 +38,23 @@ class Category {
      */
     protected $items;
     
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $url;
+    
     public function __construct(){
         $this->items = new ArrayCollection();
+    }
+    
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+    
+    public function getUrl()
+    {
+        return $this->url;
     }
     
     public function getId()

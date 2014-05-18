@@ -10,10 +10,25 @@ use \News\Form\NewsItemForm as NewsItemForm;
 class NewsController extends AbstractActionController {
     public function indexAction() {
         $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        
+        $options = array();
+        
+        $categoryUrl = (string)$this->params('category');
 
+        if($categoryUrl) { // add category to the 'where'
+            $category = $objectManager
+                ->getRepository('\News\Entity\Category')
+                ->findOneByUrl($categoryUrl);
+            if(!$category) {
+                return $this->redirect()->toRoute('news');
+            }
+            $options['category'] = $category->getId();
+            $categoryName = $category->getName();
+        }
+       
         $news = $objectManager
             ->getRepository('\News\Entity\Item')
-            ->findBy(array(), array('created' => 'DESC'));
+            ->findBy($options, array('created'=>'DESC'));
 
         $items = array();
         foreach ($news as $item) {
@@ -25,10 +40,12 @@ class NewsController extends AbstractActionController {
 
         $view = new ViewModel(array(
             'news' => $items,
+            'categoryName' => $categoryName,
         ));
 
         return $view;
     }
+    
     public function listAction() {
         $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 

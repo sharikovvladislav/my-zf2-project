@@ -46,6 +46,20 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
+                    'category' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/:category[/]',
+                            'constraints' => array(
+                                'category'     => '[a-z]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'News\Controller\Item',
+                                'action'     => 'index',
+                            )
+                        ),
+                        'may_terminate' => true,
+                    ),
                 ),
             ),
         ),

@@ -64,10 +64,10 @@ class Category extends \News\Entity\Category implements \Doctrine\ORM\Proxy\Prox
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'items');
+            return array('__isInitialized__', 'id', 'name', 'items', 'url');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'items');
+        return array('__isInitialized__', 'id', 'name', 'items', 'url');
     }
 
     /**
@@ -173,6 +173,28 @@ class Category extends \News\Entity\Category implements \Doctrine\ORM\Proxy\Prox
     }
 
     
+    /**
+     * {@inheritDoc}
+     */
+    public function setUrl($url)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUrl', array($url));
+
+        return parent::setUrl($url);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUrl()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUrl', array());
+
+        return parent::getUrl();
+    }
+
     /**
      * {@inheritDoc}
      */

@@ -1,23 +1,34 @@
 <? 
-    $title = "Список новостей";
+    if($categoryName) {
+        $title = $categoryName;
+    } else {
+        $title = "Список новостей";
+    }
     $this->headTitle($title); 
 ?>
-<? foreach($this->news as $item): ?>
-    <div>
-        <label>Заголовок</label>
-        <a href="<?=$this->url('news/full', array('id' => $item['id']));?>"><?=$item['title'];?></a>
-    </div>
-    <div>
-        <label>Создано</label>
-        <?=date('d.m.Y в H:i', $item['created']);?>
-    </div>
-    <div>
-        <label>Автор</label>
-        <?=$item['user'];?>
-    </div>
-    <div>
-        <label>Полный текст новости</label>
-        <?=$item['text'];?>
-    </div>
-    <hr />
-<? endforeach; ?>
+<? if ($categoryName): ?>
+    <h1>Категория: <?=$title;?></h1>
+<? endif; ?>
+<? if(count($this->news) != 0): ?>
+    <? foreach($this->news as $item): ?>
+        <div>
+            <label>Заголовок</label>
+            <a href="<?=$this->url('news/full', array('id' => $item['id']));?>"><?=$item['title'];?></a>
+        </div>
+        <div>
+            <label>Создано</label>
+            <?=date('d.m.Y в H:i', $item['created']);?>
+        </div>
+        <div>
+            <label>Автор</label>
+            <?=$item['user'];?>
+        </div>
+        <div>
+            <label>Полный текст новости</label>
+            <?=$item['text'];?>
+        </div>
+        <hr />
+    <? endforeach; ?>
+<? else: ?>
+    <div>Нет новостей для отображения</div>
+<? endif; ?>
