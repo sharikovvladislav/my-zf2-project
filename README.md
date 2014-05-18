@@ -18,6 +18,7 @@ TODO List (todo item, done date)
  + `Like`'s 
  + ~~List of news~~ | 18.05.2014 22.00
  + ~~News by category~~ | 18.05.2014 23.43
++ Divide `News` module to front end and back end parts (?)
 + User management in admin panel
 + Module `Departments`
 + Front-end
