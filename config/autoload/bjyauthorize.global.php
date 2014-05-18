@@ -114,6 +114,7 @@ return array(
                 ),
                 array(
                     'controller' => 'News\Controller\Item', 
+                    'action' => array('full', 'index'),
                     'roles' => array('guest'),
                 ),
                 array(
