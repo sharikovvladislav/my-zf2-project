@@ -17,7 +17,7 @@ TODO List (todo item, done date)
  + ~~Full news~~  | 18.05.2014 22.00
  + `Like`'s 
  + ~~List of news~~ | 18.05.2014 22.00
- + News by category
+ + ~~News by category~~ | 18.05.2014 23.43
 + User management in admin panel
 + Module `Departments`
 + Front-end
