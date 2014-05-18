@@ -13,6 +13,7 @@ TODO List (todo item, done date)
  + News `list` action
  + Categories `index` action
  + News `index` action
++ Fix problem with ORM and `MyZdcAdmin` config
 + Users part of `News` module
  + ~~Full news~~  | 18.05.2014 22.00
  + `Like`'s 
