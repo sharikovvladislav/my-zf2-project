@@ -22,16 +22,29 @@ return array(
     'router' => array(
         'routes' => array(
             'news' => array(
-                'type'    => 'segment',
+                'type' => 'Literal',
                 'options' => array(
-                    'route'    => '/news[/][:action][/:id]',
-                    'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                    ),
+                    'route' => '/news',
                     'defaults' => array(
                         'controller' => 'News\Controller\Item',
                         'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true, 
+                'child_routes' => array(
+                    'full' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/:id[/]',
+                            'constraints' => array(
+                                'id'     => '[1-9][0-9]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'News\Controller\Item',
+                                'action'     => 'full',
+                            )
+                        ),
+                        'may_terminate' => true,
                     ),
                 ),
             ),
@@ -48,3 +61,22 @@ return array(
         ),
     ),
 );
+
+/*
+                'child_routes' => array(
+                    'full' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/full[/:id]',
+                            'constraints' => array(
+                                'id'     => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'News\Controller\Item',
+                                'action'     => 'full',
+                            )
+                        ),
+                        'may_terminate' => true,
+                    ),
+                ),
+*/

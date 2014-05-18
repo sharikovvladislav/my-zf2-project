@@ -1,0 +1,24 @@
+<? 
+    $title = $this->item['title'];
+    $this->headTitle($title); 
+?>
+<div>
+    <label>Заголовок</label>
+    <?=$this->item['title'];?>
+</div>
+<div>
+    <label>Категория</label>
+    <?=$this->item['category'];?>
+</div>
+<div>
+    <label>Создано</label>
+    <?=date('d.m.Y в H:i', $this->item['created']);?>
+</div>
+<div>
+    <label>Автор</label>
+    <?=$this->item['user'];?>
+</div>
+<div>
+    <label>Полный текст новости</label>
+    <?=$this->item['text'];?>
+</div>

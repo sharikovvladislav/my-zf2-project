@@ -9,10 +9,6 @@ use \News\Form\NewsItemForm as NewsItemForm;
 
 class NewsController extends AbstractActionController {
     public function indexAction() {
-        
-    }
-    public function listAction() {
-
         $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
         $news = $objectManager
@@ -22,9 +18,29 @@ class NewsController extends AbstractActionController {
         $items = array();
         foreach ($news as $item) {
             $buffer = $item->getArrayCopy();
-            // getting data from model
-            $buffer['category'] = $buffer['category']->getName();
-            $buffer['user'] = $buffer['user']->getDisplayName();
+            $buffer['category'] = $item->getCategory()->getName();
+            $buffer['user'] = $item->getUser()->getDisplayName();
+            $items[] = $buffer;
+        }
+
+        $view = new ViewModel(array(
+            'news' => $items,
+        ));
+
+        return $view;
+    }
+    public function listAction() {
+        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+        $news = $objectManager
+            ->getRepository('\News\Entity\Item')
+            ->findBy(array(), array('created' => 'DESC'));
+
+        $items = array();
+        foreach ($news as $item) {
+            $buffer = $item->getArrayCopy();
+            $buffer['category'] = $item->getCategory()->getName();
+            $buffer['user'] = $item->getUser()->getDisplayName();
             $items[] = $buffer;
         }
 
@@ -71,13 +87,13 @@ class NewsController extends AbstractActionController {
                 $user = $objectManager
                     ->getRepository('\SamUser\Entity\User')
                     ->find($userId);
-                $item->setUserId($user);
+                $item->setUser($user);
                 
                 $categoryId = $request->getPost('category');
                 $category = $objectManager
                     ->getRepository('\News\Entity\Category')
                     ->find($categoryId);
-                $item->setCategoryId($category);
+                $item->setCategory($category);
                 
                 $objectManager->persist($item);
                 $objectManager->flush();
@@ -160,7 +176,7 @@ class NewsController extends AbstractActionController {
                 $category = $objectManager
                     ->getRepository('\News\Entity\Category')
                     ->find($categoryId);
-                $item->setCategoryId($category);
+                $item->setCategory($category);
                 
                 $objectManager->persist($item);
                 $objectManager->flush();
@@ -198,5 +214,26 @@ class NewsController extends AbstractActionController {
         return array(
             'form' => $form
         );
+    }
+    
+    public function fullAction() {
+        $itemId = (int)$this->params('id');
+        if(!$itemId) {
+            return $this->redirect()->toRoute('news');
+        }
+        
+        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+        $item = $objectManager
+            ->getRepository('\News\Entity\Item')
+            ->find($itemId);
+
+        $itemArray = $item->getArrayCopy();
+        $itemArray['category'] = $item->getCategory()->getName();
+        $itemArray['user'] = $item->getUser()->getDisplayName();
+        
+        return new ViewModel(array(
+            'item' => $itemArray,
+        ));
     }
 }
