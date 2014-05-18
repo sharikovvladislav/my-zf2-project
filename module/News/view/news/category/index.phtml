@@ -8,13 +8,14 @@
     <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'add'));?>">Добавить категорию</a>
 </p>
 <table class='table'>
-    <tr><th>Название</th><th>Действия</th></tr>
+    <tr><th>Название</th><th>Краткий url</th><th>Действия</th></tr>
     <? if(0 == count($this->categories)) : ?>
         <tr><td colspan="2">Категорий еще нет, вы можете <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'add'));?>">добавить новую</a></td></tr>
     <? else: ?>
         <? foreach($this->categories as $category) : ?>
             <tr>
                 <td><?=$category['name'];?></td>
+                <td><a href="<?=$this->url('news/category', array('category'=>$category['url']));?>">/<?=$category['url'];?></a></td>
                 <td>
                     <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'edit', 'id' => $category['id']));?>">изменить</a>,
                     <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'delete', 'id' => $category['id']));?>">удалить</a>

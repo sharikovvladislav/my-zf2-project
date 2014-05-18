@@ -31,7 +31,16 @@ class CategoryForm extends Form
             'options' => array(
                 'min' => 3,
                 'max' => 30,
-                'label' => 'Название',
+                'label' => 'Название: ',
+            ),
+        ));
+        $this->add(array(
+            'name' => 'url',
+            'type' => 'Text',
+            'options' => array(
+                'min' => 3,
+                'max' => 30,
+                'label' => 'URL (для быстрого доступа по url): ',
             ),
         ));
         $this->add(array(

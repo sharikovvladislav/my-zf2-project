@@ -25,7 +25,23 @@ class CategoryInputFilter extends InputFilter
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
             ),
-
+        ));
+        $this->add(array(
+            'name' => 'url',
+            'required' => true,
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'min' => 3,
+                        'max' => 30,
+                    ),
+                ),
+            ),
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
         ));
         $this->add(array(
             'name' => 'security',
