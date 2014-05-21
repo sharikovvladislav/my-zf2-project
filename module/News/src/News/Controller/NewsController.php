@@ -8,15 +8,17 @@ use \News\Entity\Item as Item;
 use \News\Form\NewsItemForm as NewsItemForm;
 
 class NewsController extends AbstractActionController {
+    public function __construct() {
+        $this->objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+    }
+
     public function indexAction() {
-        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        
         $options = array();
         
         $categoryUrl = (string)$this->params('category');
 
         if($categoryUrl) { // add category to the 'where'
-            $category = $objectManager
+            $category = $this->objectManager
                 ->getRepository('\News\Entity\Category')
                 ->findOneByUrl($categoryUrl);
             if(!$category) {
@@ -26,7 +28,7 @@ class NewsController extends AbstractActionController {
             $categoryName = $category->getName();
         }
        
-        $news = $objectManager
+        $news = $this->objectManager
             ->getRepository('\News\Entity\Item')
             ->findBy($options, array('created'=>'DESC'));
 
@@ -47,9 +49,7 @@ class NewsController extends AbstractActionController {
     }
     
     public function listAction() {
-        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-
-        $news = $objectManager
+        $news = $this->objectManager
             ->getRepository('\News\Entity\Item')
             ->findBy(array(), array('created' => 'DESC'));
 
@@ -75,9 +75,8 @@ class NewsController extends AbstractActionController {
         $form->get('visible')->setUncheckedValue(1);
         
         $form->get('submit')->setValue('Добавить');
-        
-        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $categories = $objectManager
+
+        $categories = $this->objectManager
             ->getRepository('\News\Entity\Category')
             ->findAll();
         $items = array();
@@ -92,8 +91,6 @@ class NewsController extends AbstractActionController {
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-                                    
                 $item = new Item();
 
                 $item->exchangeArray($form->getData());
@@ -101,19 +98,19 @@ class NewsController extends AbstractActionController {
                 $item->setCreated(time());
                 
                 $userId = $this->zfcUserAuthentication()->getIdentity()->getId();
-                $user = $objectManager
+                $user = $this->objectManager
                     ->getRepository('\SamUser\Entity\User')
                     ->find($userId);
                 $item->setUser($user);
                 
                 $categoryId = $request->getPost('category');
-                $category = $objectManager
+                $category = $this->objectManager
                     ->getRepository('\News\Entity\Category')
                     ->find($categoryId);
                 $item->setCategory($category);
                 
-                $objectManager->persist($item);
-                $objectManager->flush();
+                $this->objectManager->persist($item);
+                $this->objectManager->flush();
                 $message = 'Новость добавлена';
                 $this->flashMessenger()->addMessage($message);
                 // Redirect to list of items
@@ -131,8 +128,7 @@ class NewsController extends AbstractActionController {
         if(!$id) {
             return $this->redirect()->toRoute('zfcadmin/news');
         }
-        $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $item = $entityManager
+        $item = $this->objectManager
             ->getRepository('\News\Entity\Item')
             ->find($id);
         
@@ -146,8 +142,8 @@ class NewsController extends AbstractActionController {
             'title' => $item->getTitle(),
         );
         
-        $entityManager->remove($item);
-        $entityManager->flush();
+        $this->objectManager->remove($item);
+        $this->objectManager->flush();
 
         $view = new ViewModel($result);
         return $view;
@@ -160,9 +156,8 @@ class NewsController extends AbstractActionController {
         $form->get('visible')->setUncheckedValue(1);
         
         $form->get('submit')->setValue('Изменить');
-        
-        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $categories = $objectManager
+
+        $categories = $this->objectManager
             ->getRepository('\News\Entity\Category')
             ->findAll();
         $items = array();
@@ -181,7 +176,7 @@ class NewsController extends AbstractActionController {
                 $itemId = $data['id'];
                 
                 try {
-                    $item = $objectManager->find('\News\Entity\Item', $itemId);
+                    $item = $this->objectManager->find('\News\Entity\Item', $itemId);
                 }
                 catch (\Exception $ex) {
                     return $this->redirect()->toRoute('zfcadmin/news');
@@ -190,13 +185,13 @@ class NewsController extends AbstractActionController {
                 $item->exchangeArray($form->getData());
                 $item->setCreated($created);
                 $categoryId = $data['category'];
-                $category = $objectManager
+                $category = $this->objectManager
                     ->getRepository('\News\Entity\Category')
                     ->find($categoryId);
                 $item->setCategory($category);
                 
-                $objectManager->persist($item);
-                $objectManager->flush();
+                $this->objectManager->persist($item);
+                $this->objectManager->flush();
 
                 $message = 'Новость изменена';
                 $this->flashMessenger()->addMessage($message);
@@ -212,9 +207,7 @@ class NewsController extends AbstractActionController {
                 return $this->redirect()->toRoute('zfcadmin/news');
             }
 
-            $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-
-            $item = $objectManager
+            $item = $this->objectManager
                 ->getRepository('\News\Entity\Item')
                 ->findOneBy(array('id' => $id));
 
@@ -238,10 +231,8 @@ class NewsController extends AbstractActionController {
         if(!$itemId) {
             return $this->redirect()->toRoute('news');
         }
-        
-        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
-        $item = $objectManager
+        $item = $this->objectManager
             ->getRepository('\News\Entity\Item')
             ->find($itemId);
 
