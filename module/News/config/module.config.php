@@ -15,11 +15,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'News\Controller\Item' => 'News\Controller\NewsController',
             'News\Controller\Category' => 'News\Controller\CategoryController',
         ),
         'factories'     => array(
-            'News\Controller\NewsController'          => 'News\Factory\NewsControllerFactory',
+            'News\Controller\Item' => 'News\Factory\NewsControllerFactory',
         ),
     ),
     'router' => array(
@@ -33,7 +32,7 @@ return array(
                         'action'     => 'index',
                     ),
                 ),
-                'may_terminate' => true, 
+                'may_terminate' => true,
                 'child_routes' => array(
                     'full' => array(
                         'type' => 'Segment',
