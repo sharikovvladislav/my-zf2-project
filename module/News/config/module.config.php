@@ -18,11 +18,9 @@ return array(
             'News\Controller\Item' => 'News\Controller\NewsController',
             'News\Controller\Category' => 'News\Controller\CategoryController',
         ),
-    ),
-    'service_manager' => array(
         'factories'     => array(
             'News\Controller\NewsController'          => 'News\Factory\NewsControllerFactory',
-        )
+        ),
     ),
     'router' => array(
         'routes' => array(
