@@ -7,9 +7,15 @@ use Zend\View\Model\ViewModel;
 use \News\Entity\Item as Item;
 use \News\Form\NewsItemForm as NewsItemForm;
 
+
+
 class NewsController extends AbstractActionController {
-    public function __construct() {
-        $this->objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+    protected $objectManager;
+
+    public function __construct($objectManager = null) {
+        if($objectManager) {
+            $this->objectManager = $objectManager;
+        }
     }
 
     public function indexAction() {

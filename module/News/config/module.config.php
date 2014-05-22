@@ -19,6 +19,11 @@ return array(
             'News\Controller\Category' => 'News\Controller\CategoryController',
         ),
     ),
+    'service_manager' => array(
+        'factories'     => array(
+            'News\Controller\NewsController'          => 'News\Factory\NewsControllerFactory',
+        )
+    ),
     'router' => array(
         'routes' => array(
             'news' => array(
@@ -75,22 +80,3 @@ return array(
         ),
     ),
 );
-
-/*
-                'child_routes' => array(
-                    'full' => array(
-                        'type' => 'literal',
-                        'options' => array(
-                            'route' => '/full[/:id]',
-                            'constraints' => array(
-                                'id'     => '[0-9]+',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'News\Controller\Item',
-                                'action'     => 'full',
-                            )
-                        ),
-                        'may_terminate' => true,
-                    ),
-                ),
-*/
