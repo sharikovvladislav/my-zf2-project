@@ -44,7 +44,9 @@ class NewsController extends AbstractActionController {
             $buffer['category'] = $item->getCategory()->getName();
             $buffer['categoryUrl'] = $item->getCategory()->getUrl();
             $buffer['user'] = $item->getUser()->getDisplayName();
-            $items[] = $buffer;
+            if($item->getVisible()) {
+                $items[] = $buffer;
+            }
         }
 
         $view = new ViewModel(array(

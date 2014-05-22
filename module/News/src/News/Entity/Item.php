@@ -70,7 +70,10 @@ class Item {
     
     public function getVisible()
     {
-        return $this->visible;
+        if(0 == $this->visible)
+            return false;
+        else
+            return true;
     }
     
     /**
