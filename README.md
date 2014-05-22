@@ -11,7 +11,8 @@ TODO List (todo item, done date)
 + ~~`Edit` action, `CategoryController`~~ | 18.05.2014 03.13
 + Fix controllers as [suggested](http://codereview.stackexchange.com/a/51089/42210)
  + ~~`News` controller~~ (+ fixed) | 22.05.2014 20.00
- + `Category` controller
+ + ~~`Category` controller~~ | 22.05.2014 23.40
+ + Minor fixes
 + Pagination
  + News `list` action
  + Categories `index` action
