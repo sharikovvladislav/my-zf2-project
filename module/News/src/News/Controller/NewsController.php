@@ -5,7 +5,6 @@ namespace News\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use \News\Entity\Item as Item;
-use \News\Entity\Category as Category;
 use \News\Form\NewsItemForm as NewsItemForm;
 
 

@@ -15,10 +15,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'News\Controller\Category' => 'News\Controller\CategoryController',
         ),
         'factories'     => array(
             'News\Controller\Item' => 'News\Factory\NewsControllerFactory',
+            'News\Controller\Category' => 'News\Factory\NewsControllerFactory',
         ),
     ),
     'router' => array(

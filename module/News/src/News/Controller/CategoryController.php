@@ -8,9 +8,16 @@ use \News\Entity\Category as Category;
 use \News\Form\CategoryForm as CategoryForm;
 
 class CategoryController extends AbstractActionController {
+    protected $objectManager;
+
+    public function __construct($objectManager = null) {
+        if($objectManager) {
+            $this->objectManager = $objectManager;
+        }
+    }
+
     public function indexAction() {
-        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $categories = $objectManager
+        $categories = $this->objectManager
             ->getRepository('\News\Entity\Category')
             ->findAll();
             
@@ -33,14 +40,12 @@ class CategoryController extends AbstractActionController {
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-
                 $item = new Category();
 
                 $item->exchangeArray($form->getData());
 
-                $objectManager->persist($item);
-                $objectManager->flush();
+                $this->objectManager->persist($item);
+                $this->objectManager->flush();
 
                 // Redirect to list of blogposts
                 return $this->redirect()->toRoute('zfcadmin/news/categories');
@@ -55,9 +60,8 @@ class CategoryController extends AbstractActionController {
         if(!$id) {
             return $this->redirect()->toRoute('zfcadmin/news/categories');
         }
-        
-        $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $category = $entityManager
+
+        $category = $this->objectManager
             ->getRepository('\News\Entity\Category')
             ->findOneById($id);
         
@@ -71,8 +75,8 @@ class CategoryController extends AbstractActionController {
             'categoryName' => $category->getName(),
         );
         
-        $entityManager->remove($category);
-        $entityManager->flush();
+        $this->objectManager->remove($category);
+        $this->objectManager->flush();
             
         $view = new ViewModel($result);
         return $view;
@@ -82,8 +86,6 @@ class CategoryController extends AbstractActionController {
         $form = new CategoryForm();
         
         $form->get('submit')->setValue('Изменить');
-        
-        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         
         //handling request
         $request = $this->getRequest();
@@ -95,7 +97,7 @@ class CategoryController extends AbstractActionController {
                 $categoryId = $data['id'];
                 
                 try {
-                    $item = $objectManager->find('\News\Entity\Category', $categoryId);
+                    $item = $this->objectManager->find('\News\Entity\Category', $categoryId);
                 }
                 catch (\Exception $ex) {
                     return $this->redirect()->toRoute('zfcadmin/news/categories');
@@ -103,8 +105,8 @@ class CategoryController extends AbstractActionController {
 
                 $item->exchangeArray($form->getData());
                 
-                $objectManager->persist($item);
-                $objectManager->flush();
+                $this->objectManager->persist($item);
+                $this->objectManager->flush();
 
                 $message = 'Категория изменена';
                 $this->flashMessenger()->addMessage($message);
@@ -120,9 +122,7 @@ class CategoryController extends AbstractActionController {
                 return $this->redirect()->toRoute('zfcadmin/news/categories');
             }
 
-            $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-
-            $item = $objectManager
+            $item = $this->objectManager
                 ->getRepository('\News\Entity\Category')
                 ->findOneBy(array('id' => $id));
 
