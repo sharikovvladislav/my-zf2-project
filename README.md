@@ -10,7 +10,7 @@ TODO List (todo item, done date)
 + ~~`Edit` action, `NewsController`~~ | 17.05.2014 00.57
 + ~~`Edit` action, `CategoryController`~~ | 18.05.2014 03.13
 + Fix controllers as [suggested](http://codereview.stackexchange.com/a/51089/42210)
- + `News` controller
+ + `News` controller (fix me!!!)
  + `Category` controller
 + Pagination
  + News `list` action
