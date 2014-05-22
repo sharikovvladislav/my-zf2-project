@@ -15,7 +15,6 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'News\Controller\Item' => 'News\Controller\NewsController',
             'News\Controller\Category' => 'News\Controller\CategoryController',
         ),
         'factories'     => array(
