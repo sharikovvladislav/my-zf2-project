@@ -10,7 +10,7 @@ class NewsControllerFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        var_dump("bob");
+        var_dump("factory called");
         $objectManager = $serviceLocator->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         return new NewsController($objectManager);
     }

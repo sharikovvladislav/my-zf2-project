@@ -13,6 +13,7 @@ class NewsController extends AbstractActionController {
     protected $objectManager;
 
     public function __construct($objectManager = null) {
+        var_dump("NewsController __construct method called");
         if($objectManager) {
             $this->objectManager = $objectManager;
         }
