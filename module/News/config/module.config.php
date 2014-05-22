@@ -18,7 +18,7 @@ return array(
         ),
         'factories'     => array(
             'News\Controller\Item' => 'News\Factory\NewsControllerFactory',
-            'News\Controller\Category' => 'News\Factory\NewsControllerFactory',
+            'News\Controller\Category' => 'News\Factory\CategoryControllerFactory',
         ),
     ),
     'router' => array(
