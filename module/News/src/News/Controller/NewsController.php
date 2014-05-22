@@ -5,6 +5,7 @@ namespace News\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use \News\Entity\Item as Item;
+use \News\Entity\Category as Category;
 use \News\Form\NewsItemForm as NewsItemForm;
 
 class NewsController extends AbstractActionController {
@@ -34,6 +35,7 @@ class NewsController extends AbstractActionController {
         foreach ($news as $item) {
             $buffer = $item->getArrayCopy();
             $buffer['category'] = $item->getCategory()->getName();
+            $buffer['categoryUrl'] = $item->getCategory()->getUrl();
             $buffer['user'] = $item->getUser()->getDisplayName();
             $items[] = $buffer;
         }
