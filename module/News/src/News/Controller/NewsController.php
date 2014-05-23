@@ -6,7 +6,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use \News\Entity\Item as Item;
 use \News\Form\NewsItemForm as NewsItemForm;
-
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as PaginatorAdapter;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator as ZendPaginator;
 
 
 class NewsController extends AbstractActionController {
@@ -19,14 +21,15 @@ class NewsController extends AbstractActionController {
     }
 
     public function indexAction() {
-        var_dump("bro");
+        $page = (int)$this->params('page');
         return new ViewModel(array(
-            'news' => $this->getItems(),
+            'news' => $this->getItems($page),
             'categoryName' => null,
         ));
     }
 
     public function categoryAction() {
+        $page = (int)$this->params('page');
         $categoryUrl = (string)$this->params('category');
 
         if($categoryUrl) { // add category to the 'where'
@@ -39,18 +42,23 @@ class NewsController extends AbstractActionController {
         }
 
         return new ViewModel(array(
-            'news' => $this->getItems(array('category' => $category->getId())),
+            'news' => $this->getItems($page, array('category' => $category->getId())),
             'categoryName' => $category->getName(),
         ));
     }
 
-    private function getItems($options = array()) {
+    private function getItems($page, $options = array()) {
         $news = $this->objectManager
-            ->getRepository('\News\Entity\Item')
-            ->findBy($options, array('created'=>'DESC'));
+            ->getRepository('\News\Entity\Item');
+
+        $query = $news->findBy($options, array('created'=>'DESC'));
+
+        $paginator = new ZendPaginator(new PaginatorAdapter(new ORMPaginator($query)));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(2);
 
         $items = array();
-        foreach ($news as $item) {
+        foreach ($paginator as $item) {
             $buffer = $item->getArrayCopy();
             $buffer['category'] = $item->getCategory()->getName();
             $buffer['categoryUrl'] = $item->getCategory()->getUrl();
