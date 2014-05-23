@@ -17,6 +17,7 @@ class NewsController extends AbstractActionController {
     public function __construct($objectManager = null) {
         if($objectManager) {
             $this->objectManager = $objectManager;
+            $this->queryBuilder = $objectManager->createQueryBuilder();
         }
     }
 
@@ -51,11 +52,18 @@ class NewsController extends AbstractActionController {
         $news = $this->objectManager
             ->getRepository('\News\Entity\Item');
 
-        $query = $news->findBy($options, array('created'=>'DESC'));
+        $query = $news->createQueryBuilder('i')
+            ->orderBy('i.created', 'DESC');
 
         $paginator = new ZendPaginator(new PaginatorAdapter(new ORMPaginator($query)));
         $paginator->setCurrentPageNumber($page);
-        $paginator->setItemCountPerPage(2);
+        $paginator->setItemCountPerPage(5);
+        $array = array();
+        $array['getTotalItemCount method'] = $paginator->getTotalItemCount();
+        $array['count method'] = $paginator->count();
+
+        echo "<pre>";var_dump($array); echo "</pre>";
+        //die();
 
         $items = array();
         foreach ($paginator as $item) {
