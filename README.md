@@ -9,10 +9,10 @@ TODO List (todo item, done date)
 + ~~Fix layout on login page (`/admin/login`)~~ | 18.05.2014 01.35
 + ~~`Edit` action, `NewsController`~~ | 17.05.2014 00.57
 + ~~`Edit` action, `CategoryController`~~ | 18.05.2014 03.13
-+ Fix controllers as [suggested](http://codereview.stackexchange.com/a/51089/42210)
++ ~~Fix controllers as [suggested](http://codereview.stackexchange.com/a/51089/42210)~~ | 23.05.2014 21.24
  + ~~`News` controller~~ (+ fixed) | 22.05.2014 20.00
  + ~~`Category` controller~~ | 22.05.2014 23.40
- + Minor fixes
+ + ~~Minor fixes~~ | 23.05.2014 21.24
 + Pagination
  + News `list` action
  + Categories `index` action
