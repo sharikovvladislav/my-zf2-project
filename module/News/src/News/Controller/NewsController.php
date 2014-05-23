@@ -27,8 +27,6 @@ class NewsController extends AbstractActionController {
     }
 
     public function categoryAction() {
-        var_dump("bbo");
-        die();
         $categoryUrl = (string)$this->params('category');
 
         if($categoryUrl) { // add category to the 'where'
