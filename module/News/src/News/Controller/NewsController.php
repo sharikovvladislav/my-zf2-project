@@ -19,8 +19,16 @@ class NewsController extends AbstractActionController {
     }
 
     public function indexAction() {
-        $options = array();
-        
+        var_dump("bro");
+        return new ViewModel(array(
+            'news' => $this->getItems(),
+            'categoryName' => null,
+        ));
+    }
+
+    public function categoryAction() {
+        var_dump("bbo");
+        die();
         $categoryUrl = (string)$this->params('category');
 
         if($categoryUrl) { // add category to the 'where'
@@ -30,10 +38,15 @@ class NewsController extends AbstractActionController {
             if(!$category) {
                 return $this->redirect()->toRoute('news');
             }
-            $options['category'] = $category->getId();
-            $categoryName = $category->getName();
         }
-       
+
+        return new ViewModel(array(
+            'news' => $this->getItems(array('category' => $category->getId())),
+            'categoryName' => $category->getName(),
+        ));
+    }
+
+    private function getItems($options = array()) {
         $news = $this->objectManager
             ->getRepository('\News\Entity\Item')
             ->findBy($options, array('created'=>'DESC'));
@@ -48,15 +61,9 @@ class NewsController extends AbstractActionController {
                 $items[] = $buffer;
             }
         }
-
-        $view = new ViewModel(array(
-            'news' => $items,
-            'categoryName' => $categoryName,
-        ));
-
-        return $view;
+        return $items;
     }
-    
+
     public function listAction() {
         $news = $this->objectManager
             ->getRepository('\News\Entity\Item')

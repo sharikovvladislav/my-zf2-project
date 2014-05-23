@@ -57,7 +57,7 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'News\Controller\Item',
-                                'action'     => 'index',
+                                'action'     => 'category',
                             )
                         ),
                         'may_terminate' => true,
