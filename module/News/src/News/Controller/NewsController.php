@@ -43,27 +43,26 @@ class NewsController extends AbstractActionController {
         }
 
         return new ViewModel(array(
-            'news' => $this->getItems($page, array('category' => $category->getId())),
+            'news' => $this->getItems($page, $category->getId()),
             'categoryName' => $category->getName(),
         ));
     }
 
-    private function getItems($page, $options = array()) {
+    private function getItems($page, $categoryId = null) {
         $news = $this->objectManager
             ->getRepository('\News\Entity\Item');
 
         $query = $news->createQueryBuilder('i')
-            ->orderBy('i.created', 'DESC');
+            ->orderBy('i.created', 'DESC')
+            ->where('i.visible = 1');
+
+        if($categoryId) {
+            $query->andWhere($query->expr()->eq('i.category', $categoryId));
+        }
 
         $paginator = new ZendPaginator(new PaginatorAdapter(new ORMPaginator($query)));
         $paginator->setCurrentPageNumber($page);
-        $paginator->setItemCountPerPage(5);
-        $array = array();
-        $array['getTotalItemCount method'] = $paginator->getTotalItemCount();
-        $array['count method'] = $paginator->count();
-
-        echo "<pre>";var_dump($array); echo "</pre>";
-        //die();
+        $paginator->setDefaultItemCountPerPage(10);
 
         $items = array();
         foreach ($paginator as $item) {
@@ -71,9 +70,7 @@ class NewsController extends AbstractActionController {
             $buffer['category'] = $item->getCategory()->getName();
             $buffer['categoryUrl'] = $item->getCategory()->getUrl();
             $buffer['user'] = $item->getUser()->getDisplayName();
-            if($item->getVisible()) {
-                $items[] = $buffer;
-            }
+            $items[] = $buffer;
         }
         return $items;
     }
