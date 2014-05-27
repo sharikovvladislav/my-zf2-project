@@ -6,7 +6,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use \News\Entity\Item as Item;
 use \News\Form\NewsItemForm as NewsItemForm;
-
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as PaginatorAdapter;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator as ZendPaginator;
 
 
 class NewsController extends AbstractActionController {
@@ -15,18 +17,20 @@ class NewsController extends AbstractActionController {
     public function __construct($objectManager = null) {
         if($objectManager) {
             $this->objectManager = $objectManager;
+            $this->queryBuilder = $objectManager->createQueryBuilder();
         }
     }
 
     public function indexAction() {
-        var_dump("bro");
+        $page = (int)$this->params('page');
         return new ViewModel(array(
-            'news' => $this->getItems(),
+            'news' => $this->getItems($page),
             'categoryName' => null,
         ));
     }
 
     public function categoryAction() {
+        $page = (int)$this->params('page');
         $categoryUrl = (string)$this->params('category');
 
         if($categoryUrl) { // add category to the 'where'
@@ -39,25 +43,34 @@ class NewsController extends AbstractActionController {
         }
 
         return new ViewModel(array(
-            'news' => $this->getItems(array('category' => $category->getId())),
+            'news' => $this->getItems($page, $category->getId()),
             'categoryName' => $category->getName(),
         ));
     }
 
-    private function getItems($options = array()) {
+    private function getItems($page, $categoryId = null) {
         $news = $this->objectManager
-            ->getRepository('\News\Entity\Item')
-            ->findBy($options, array('created'=>'DESC'));
+            ->getRepository('\News\Entity\Item');
+
+        $query = $news->createQueryBuilder('i')
+            ->orderBy('i.created', 'DESC')
+            ->where('i.visible = 1');
+
+        if($categoryId) {
+            $query->andWhere($query->expr()->eq('i.category', $categoryId));
+        }
+
+        $paginator = new ZendPaginator(new PaginatorAdapter(new ORMPaginator($query)));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setDefaultItemCountPerPage(10);
 
         $items = array();
-        foreach ($news as $item) {
+        foreach ($paginator as $item) {
             $buffer = $item->getArrayCopy();
             $buffer['category'] = $item->getCategory()->getName();
             $buffer['categoryUrl'] = $item->getCategory()->getUrl();
             $buffer['user'] = $item->getUser()->getDisplayName();
-            if($item->getVisible()) {
-                $items[] = $buffer;
-            }
+            $items[] = $buffer;
         }
         return $items;
     }

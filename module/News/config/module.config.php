@@ -24,12 +24,13 @@ return array(
     'router' => array(
         'routes' => array(
             'news' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route' => '/news',
+                    'route' => '/news[/page-:page]',
                     'defaults' => array(
                         'controller' => 'News\Controller\Item',
                         'action'     => 'index',
+                        'page'      => 1,
                     ),
                 ),
                 'may_terminate' => true,
