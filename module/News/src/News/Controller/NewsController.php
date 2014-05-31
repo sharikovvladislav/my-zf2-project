@@ -9,7 +9,7 @@ use \News\Form\NewsItemForm as NewsItemForm;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as PaginatorAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator as ZendPaginator;
-
+use Zend\View\Helper\PaginationControl as ZendPaginationControl;
 
 class NewsController extends AbstractActionController {
     protected $objectManager;
@@ -68,9 +68,9 @@ class NewsController extends AbstractActionController {
         $items = array();
         foreach ($paginator as $item) {
             $buffer = $item->getArrayCopy();
-            $buffer['category'] = $item->getCategory()->getName();
-            $buffer['categoryUrl'] = $item->getCategory()->getUrl();
-            $buffer['user'] = $item->getUser()->getDisplayName();
+            $buffer['category'] = $item->getCategoryName();
+            $buffer['categoryUrl'] = $item->getCategoryUrl();
+            $buffer['user'] = $item->getUserName();
             $items[] = $buffer;
         }
         return $items;

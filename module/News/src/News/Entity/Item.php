@@ -152,6 +152,11 @@ class Item {
         return $this->user;
     }
 
+    public function getUserName()
+    {
+        return $this->user->getDisplayName();
+    }
+
     /**
     * Set userId.
     *
@@ -172,6 +177,16 @@ class Item {
     public function getCategory()
     {
         return $this->category;
+    }
+
+    public function getCategoryName()
+    {
+        return $this->category->getName();
+    }
+
+    public function getCategoryUrl()
+    {
+        return $this->category->getUrl();
     }
 
     /**
