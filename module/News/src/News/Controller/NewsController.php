@@ -22,15 +22,14 @@ class NewsController extends AbstractActionController {
     }
 
     public function indexAction() {
-        $page = (int)$this->params('page');
         return new ViewModel(array(
-            'news' => $this->getItems($page),
+            'news' => $this->getItems(),
             'categoryName' => null,
         ));
     }
 
     public function categoryAction() {
-        $page = (int)$this->params('page');
+
         $categoryUrl = (string)$this->params('category');
 
         if($categoryUrl) { // add category to the 'where'
@@ -43,12 +42,14 @@ class NewsController extends AbstractActionController {
         }
 
         return new ViewModel(array(
-            'news' => $this->getItems($page, $category->getId()),
+            'news' => $this->getItems($category->getId()),
             'categoryName' => $category->getName(),
         ));
     }
 
-    private function getItems($page, $categoryId = null) {
+    private function getItems($categoryId = null) {
+        $page = (int)$this->params('page');
+
         $news = $this->objectManager
             ->getRepository('\News\Entity\Item');
 
