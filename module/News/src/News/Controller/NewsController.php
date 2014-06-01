@@ -65,7 +65,6 @@ class NewsController extends AbstractActionController {
         $paginator->setCurrentPageNumber($page);
         $paginator->setDefaultItemCountPerPage(10);
 
-
         return $paginator;
     }
 

@@ -28,6 +28,14 @@
         </div>
         <hr />
     <? endforeach; ?>
+    <?
+        echo $this->paginationControl(
+            $this->news,
+            'Sliding',
+            'pagination_control',
+            array('route' => 'news')
+        );
+    ?>
 <? else: ?>
     <div>Нет новостей для отображения</div>
 <? endif; ?>
