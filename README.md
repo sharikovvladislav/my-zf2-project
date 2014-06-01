@@ -29,6 +29,7 @@ TODO List (todo item, done date)
 + Module `Departments`
 + Front-end
   + Admin part
+    + Add dashboard (news stats, admin stats, etc...)
     + Fix login form at login page (center it)
     + Breadcrumb
     + Add `showMessages` helper messages box (bootstrap)
