@@ -67,12 +67,12 @@ class NewsController extends AbstractActionController {
         $paginator->setDefaultItemCountPerPage(10);
 
         if($page > $paginator->count()) {
-            $message = sprintf('Страницы <em>%s</em> не существует!', $page);
+            $message = sprintf('Страницы %s не существует!', $page);
             $this->flashMessenger()->addMessage($message);
             if($categoryId) {
                 $this->redirect()->toRoute('news/category', array('category' => $categoryId));
             } else {
-                $this->redirect()->toRoute('news/pagination', array('page' => 2));
+                $this->redirect()->toRoute('news');
             }
         }
 
@@ -93,7 +93,7 @@ class NewsController extends AbstractActionController {
         $paginator->setDefaultItemCountPerPage(10);
 
         if($page > $paginator->count()) {
-            $message = sprintf('Страницы <em>%s</em> не существует!', $page);
+            $message = sprintf('Страницы %s не существует!', $page);
             $this->flashMessenger()->addErrorMessage($message);
             return $this->redirect()->toRoute('zfcadmin/news');
         }
