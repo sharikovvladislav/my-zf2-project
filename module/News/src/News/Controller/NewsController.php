@@ -71,23 +71,22 @@ class NewsController extends AbstractActionController {
     }
 
     public function listAction() {
+        $page = (int)$this->params('page');
+
         $news = $this->objectManager
-            ->getRepository('\News\Entity\Item')
-            ->findBy(array(), array('created' => 'DESC'));
+            ->getRepository('\News\Entity\Item');
 
-        $items = array();
-        foreach ($news as $item) {
-            $buffer = $item->getArrayCopy();
-            $buffer['category'] = $item->getCategory()->getName();
-            $buffer['user'] = $item->getUser()->getDisplayName();
-            $items[] = $buffer;
-        }
+        $query = $news->createQueryBuilder('i')
+            ->orderBy('i.created', 'DESC')
+            ->where('i.visible = 1');
 
-        $view = new ViewModel(array(
-            'news' => $items,
+        $paginator = new ZendPaginator(new PaginatorAdapter(new ORMPaginator($query)));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setDefaultItemCountPerPage(10);
+
+        return new ViewModel(array(
+            'news' => $paginator,
         ));
-
-        return $view;
     }
 
     public function addAction() {

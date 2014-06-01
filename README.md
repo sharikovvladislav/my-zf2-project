@@ -14,7 +14,7 @@ TODO List (todo item, done date)
  + ~~`Category` controller~~ | 22.05.2014 23.40
  + ~~Minor fixes~~ | 23.05.2014 21.24
 + Pagination
- + News `list` action
+ + ~~News `list` action~~ | 01.06.2014 19.58
  + Categories `index` action
  + ~~News `index` action~~ | 23.05.2014 00.05 + ~~Add paginator to view~~ | 01.06.2014 15.53
  + Check incorrect page numbers

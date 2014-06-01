@@ -63,6 +63,19 @@ $config['router']['routes']['zfcadmin']['child_routes'] = array(
         ),
         'may_terminate' => true, 
         'child_routes' => array(
+            'pagination' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/page-:page',
+                    'constraints' => array(
+                        'page'     => '[1-9][0-9]*',
+                    ),
+                    'defaults' => array(
+                        'page'      => 1,
+                    )
+                ),
+                'may_terminate' => true,
+            ),
             'add' => array(
                 'type' => 'literal',
                 'options' => array(

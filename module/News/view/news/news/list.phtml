@@ -15,25 +15,36 @@
         <? foreach($this->news as $item) : ?>
             <tr>
                 <td>
-                    <a href="<?=$this->url('zfcadmin/news/full', array('action'=>'full', 'id' => $item['id']));?>"><?=$item['title'];?></a> 
+                    <a href="<?=$this->url('zfcadmin/news/full', array('action'=>'full', 'id' => $item->getId()));?>"><?=$item->getTitle();?></a>
                 </td>
                 <td>
-                    <?=$item['category'];?>
+                    <?=$item->getCategoryName();?>
                 </td>
                 <td>
-                    <?=$item['user'];?>
+                    <?=$item->getUserName();?>
                 </td>
                 <td>
-                     <? if(0 == $item['visible']): ?>Скрыта<? else: ?>Показана<? endif ?>
+                     <? if(0 == $item->getVisible()): ?>Скрыта<? else: ?>Показана<? endif ?>
                 </td>
                 <td>
-                    <?=date('d.m.Y в H:i', $item['created']); ?>
+                    <?=date('d.m.Y в H:i', $item->getCreated()); ?>
                 </td>
                 <td>
-                    <a href="<?=$this->url('zfcadmin/news/edit', array('id' => $item['id']));?>">изменить</a>,
-                    <a href="<?=$this->url('zfcadmin/news/delete', array('id' => $item['id']));?>">удалить</a>
+                    <a href="<?=$this->url('zfcadmin/news/edit', array('id' => $item->getId()));?>">изменить</a>,
+                    <a href="<?=$this->url('zfcadmin/news/delete', array('id' => $item->getId()));?>">удалить</a>
                 </td>
             </tr>
         <? endforeach; ?>
     <? endif; ?>
 </table>
+
+<? if($this->news->count() > 1): ?>
+    <div class="right">
+        <?=$this->paginationControl(
+            $this->news,
+            'Sliding',
+            'pagination_control',
+            array('route' => 'zfcadmin/news/pagination')
+        )?>
+    </div>
+<? endif; ?>
