@@ -31,6 +31,7 @@ TODO List (todo item, done date)
   + Admin part
     + Fix login form at login page (center it)
     + Breadcrumb
+    + Add `showMessages` helper messages box (bootstrap)
   + User part
   + Ajax forms
 + Find and install News Editor
