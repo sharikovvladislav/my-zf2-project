@@ -29,6 +29,7 @@ TODO List (todo item, done date)
 + Module `Departments`
 + Front-end
   + Admin part
+    + Fix login form at login page (center it)
     + Breadcrumb
   + User part
   + Ajax forms
