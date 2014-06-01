@@ -77,8 +77,7 @@ class NewsController extends AbstractActionController {
             ->getRepository('\News\Entity\Item');
 
         $query = $news->createQueryBuilder('i')
-            ->orderBy('i.created', 'DESC')
-            ->where('i.visible = 1');
+            ->orderBy('i.created', 'DESC');
 
         $paginator = new ZendPaginator(new PaginatorAdapter(new ORMPaginator($query)));
         $paginator->setCurrentPageNumber($page);
