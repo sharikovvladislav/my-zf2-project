@@ -14,13 +14,24 @@
     <? else: ?>
         <? foreach($this->categories as $category) : ?>
             <tr>
-                <td><?=$category['name'];?></td>
-                <td><a href="<?=$this->url('news/category', array('category'=>$category['url']));?>">/<?=$category['url'];?></a></td>
+                <td><?=$category->getName();?></td>
+                <td><a href="<?=$this->url('news/category', array('category'=>$category->getUrl()));?>">/<?=$category->getUrl();?></a></td>
                 <td>
-                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'edit', 'id' => $category['id']));?>">изменить</a>,
-                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'delete', 'id' => $category['id']));?>">удалить</a>
+                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'edit', 'id' => $category->getId()));?>">изменить</a>,
+                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'delete', 'id' => $category->getId()));?>">удалить</a>
                 </td>
             </tr>
         <? endforeach; ?>
     <? endif; ?>
 </table>
+
+<? if($this->categories->count() > 1): ?>
+    <div class="centered">
+        <?=$this->paginationControl(
+            $this->categories,
+            'Sliding',
+            'pagination_control',
+            array('route' => 'zfcadmin/news/categories/pagination')
+        )?>
+    </div>
+<? endif; ?>
