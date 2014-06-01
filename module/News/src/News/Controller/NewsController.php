@@ -22,11 +22,10 @@ class NewsController extends AbstractActionController {
     }
 
     public function indexAction() {
-        $viewModel = new ViewModel(array(
+        return new ViewModel(array(
             'news' => $this->getItems(),
             'categoryName' => null,
         ));
-        return $viewModel;
     }
 
     public function categoryAction() {
