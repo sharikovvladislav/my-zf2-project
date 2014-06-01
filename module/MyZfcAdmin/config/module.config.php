@@ -132,14 +132,65 @@ $config['router']['routes']['zfcadmin']['child_routes'] = array(
             'categories' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/categories[/][:action][/:id]',
-                    'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                    ),
+                    'route'    => '/categories',
                     'defaults' => array(
                         'controller' => 'News\Controller\Category',
                         'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'pagination' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/page-:page',
+                            'constraints' => array(
+                                'page'     => '[1-9][0-9]*',
+                            ),
+                            'defaults' => array(
+                                'page'      => 1,
+                            )
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'add' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/add',
+                            'defaults' => array(
+                                'controller' => 'News\Controller\Category',
+                                'action'     => 'add',
+                            )
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'edit' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/edit[/:id]',
+                            'constraints' => array(
+                                'id'     => '[1-9][0-9]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'News\Controller\Category',
+                                'action'     => 'edit',
+                            )
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'delete' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/delete[/:id]',
+                            'constraints' => array(
+                                'id'     => '[1-9][0-9]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'News\Controller\Category',
+                                'action'     => 'delete',
+                            )
+                        ),
+                        'may_terminate' => true,
                     ),
                 ),
             ),
