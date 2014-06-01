@@ -4,6 +4,7 @@
     $this->headTitle($title); 
 ?>
 <? echo $this->categoryName ?  "<h1>Категория: $this->categoryName</h1>" : "<h1>Список новостей</h1>"; ?>
+
 <? if($this->news): ?>
     <? foreach($this->news as $item): ?>
         <div>
@@ -28,14 +29,16 @@
         </div>
         <hr />
     <? endforeach; ?>
-    <?
-        echo $this->paginationControl(
-            $this->news,
-            'Sliding',
-            'pagination_control',
-            array('route' => 'news')
-        );
-    ?>
+    <? if($this->news->count() > 1): ?>
+        <div class="centered">
+                <?=$this->paginationControl(
+                    $this->news,
+                    'Sliding',
+                    'pagination_control',
+                    array('route' => 'news/pagination')
+                )?>
+        </div>
+    <? endif; ?>
 <? else: ?>
     <div>Нет новостей для отображения</div>
 <? endif; ?>
