@@ -4,7 +4,7 @@
     $this->headTitle($title); 
 ?>
 <? echo $this->categoryName ?  "<h1>Категория: $this->categoryName</h1>" : "<h1>Список новостей</h1>"; ?>
-
+<?=$this->showMessages();?>
 <? if($this->news): ?>
     <? foreach($this->news as $item): ?>
         <div>

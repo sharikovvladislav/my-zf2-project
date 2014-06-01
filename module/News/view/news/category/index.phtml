@@ -5,7 +5,7 @@
 <?=$this->showMessages();?>
 <h1><?=$title;?></h1>
 <p>
-    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'add'));?>">Добавить категорию</a>
+    <a href="<?=$this->url('zfcadmin/news/categories/add');?>">Добавить категорию</a>
 </p>
 <table class='table'>
     <tr><th>Название</th><th>Краткий url</th><th>Действия</th></tr>
@@ -17,8 +17,8 @@
                 <td><?=$category->getName();?></td>
                 <td><a href="<?=$this->url('news/category', array('category'=>$category->getUrl()));?>">/<?=$category->getUrl();?></a></td>
                 <td>
-                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'edit', 'id' => $category->getId()));?>">изменить</a>,
-                    <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'delete', 'id' => $category->getId()));?>">удалить</a>
+                    <a href="<?=$this->url('zfcadmin/news/categories/edit', array('id' => $category->getId()));?>">изменить</a>,
+                    <a href="<?=$this->url('zfcadmin/news/categories/delete', array('id' => $category->getId()));?>">удалить</a>
                 </td>
             </tr>
         <? endforeach; ?>

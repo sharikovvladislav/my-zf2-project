@@ -3,13 +3,14 @@ $title = 'Добавить категорию';
 $this->headTitle($title);
 
 ?>
-    <h1><?=$this->escapeHtml($title); ?></h1>
+<?=$this->showMessages();?>
+<h1><?=$this->escapeHtml($title); ?></h1>
 <p>
     <a href="<?=$this->url('zfcadmin/news/categories', array('action'=>'index'));?>">К списку категорий...</a>
 </p>
 <?php
 $form = $this->form;
-$form->setAttribute('action', $this->url('zfcadmin/news/categories', array('action' => 'add')));
+$form->setAttribute('action', $this->url('zfcadmin/news/categories/add'));
 $form->prepare();
 
 echo $this->form()->openTag($form);
