@@ -1,61 +1,83 @@
 <?php echo $this->doctype(); ?>
 
 <html lang="en">
-  <head>
+    <head>
     <meta charset="utf-8">
     <?php echo $this->headTitle('Административная панель')->setSeparator(' - ')->setAutoEscape(false) ?>
 
     <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
 
     <!-- Le styles -->
-    <?php echo $this->headLink()->prependStylesheet('//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css') ?>
+    <?php echo $this->headLink()
+                ->prependStylesheet($this->basePath() . '/css/style.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
 
     <!-- Scripts -->
     <?php echo $this->headScript()
-                ->prependFile('https://raw.githubusercontent.com/ethaizone/Bootstrap-Confirmation/master/bootstrap-confirmation.js')
+                ->prependFile($this->basePath()."/js/bootstrap.min.js")
                 ->prependFile('https://raw.githubusercontent.com/ethaizone/Bootstrap-Confirmation/master/bootstrap-confirmation.js')
                 ->prependFile('//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js')
                 ->prependFile('//code.jquery.com/jquery.min.js')
                 ->prependFile('//html5shiv.googlecode.com/svn/trunk/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',)) ?>
 
-  </head>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="<?=$this->url('zfcadmin') ?>" title="На главную страницу административной панели">Административная панель</a>
+                </div>
 
-  <body>
-    <div class="navbar">
-      <div class="navbar-inner">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Новости <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?=$this->url('zfcadmin/news/add') ?>">Добавить новость</a></li>
+                                <li class="divider"></li>
+                                <li><a href="<?=$this->url('zfcadmin/news') ?>">Новости</a></li>
+                                <li><a href="<?=$this->url('zfcadmin/news/categories') ?>">Категории</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-text grey">
+                                <em>Вы вошли как <strong><?php echo $this->zfcUserIdentity()->getDisplayname(); ?></strong></em>
+                            </p>
+                        </li>
+                        <li><a href="<?=$this->url('home') ?>">На сайт</a></li>
+                        <li><a href="<?=$this->url('zfcadmin/logout') ?>">Выход</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+
         <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="<?php echo $this->url('zfcadmin') ?>">ZfcAdmin</a>
-          <a class="brand" href="<?php echo $this->url('zfcadmin/news') ?>">Новости</a>
-          <a class="brand" href="<?php echo $this->url('zfcadmin/logout'); ?>">Выход</a>
-          <div class="nav-collapse">
-            <?php echo $this->navigation('admin_navigation')
-                            ->menu()
-                            ->setUlClass('nav')
-                            ->setMaxDepth(0)
-                            ->setRenderInvisible(false)?>
-          </div><!--/.nav-collapse -->
+            <?php echo $this->content; ?>
+
+            <hr>
+
+            <footer>
+                <p>&copy; 2005 - 2012 by Zend Technologies Ltd. All rights reserved.</p>
+            </footer>
+
         </div>
-      </div>
-    </div>
+        <!-- /container -->
 
-    <div class="container">
-
-      <?php echo $this->content; ?>
-
-      <hr>
-
-      <footer>
-        <p>&copy; 2005 - 2012 by Zend Technologies Ltd. All rights reserved.</p>
-      </footer>
-
-    </div> <!-- /container -->
-
-  <?php echo $this->inlineScript() ?>
-  </body>
+        <?php echo $this->inlineScript() ?>
+    </body>
 </html>
