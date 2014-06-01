@@ -22,14 +22,14 @@ class NewsController extends AbstractActionController {
     }
 
     public function indexAction() {
-        return new ViewModel(array(
+        $viewModel = new ViewModel(array(
             'news' => $this->getItems(),
             'categoryName' => null,
         ));
+        return $viewModel;
     }
 
     public function categoryAction() {
-
         $categoryUrl = (string)$this->params('category');
 
         if($categoryUrl) { // add category to the 'where'
@@ -67,6 +67,16 @@ class NewsController extends AbstractActionController {
         $paginator->setCurrentPageNumber($page);
         $paginator->setDefaultItemCountPerPage(10);
 
+        if($page > $paginator->count()) {
+            $message = 'Страницы, которую Вы ввели не существует';
+            $this->flashMessenger()->addMessage($message);
+            if($categoryId) {
+                $this->redirect()->toRoute('news/category', array('category' => $categoryId));
+            } else {
+                $this->redirect()->toRoute('news/pagination', array('page' => 2));
+            }
+        }
+
         return $paginator;
     }
 
@@ -82,6 +92,12 @@ class NewsController extends AbstractActionController {
         $paginator = new ZendPaginator(new PaginatorAdapter(new ORMPaginator($query)));
         $paginator->setCurrentPageNumber($page);
         $paginator->setDefaultItemCountPerPage(10);
+
+        if($page > $paginator->count()) {
+            $message = 'Страницы, которую Вы ввели не существует';
+            $this->flashMessenger()->addMessage($message);
+            return $this->redirect()->toRoute('zfcadmin/news');
+        }
 
         return new ViewModel(array(
             'news' => $paginator,
