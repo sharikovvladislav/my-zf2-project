@@ -50,8 +50,14 @@ class CategoryController extends AbstractActionController {
                 $this->objectManager->persist($item);
                 $this->objectManager->flush();
 
+                $message = 'Категория успешно добавлена!';
+                $this->flashMessenger()->addMessage($message);
+
                 // Redirect to list of blogposts
                 return $this->redirect()->toRoute('zfcadmin/news/categories');
+            } else {
+                $message = 'Форма заполнена неправильно!';
+                $this->flashMessenger()->addErrorMessage($message);
             }
         }
         return array('form' => $form);
@@ -111,12 +117,12 @@ class CategoryController extends AbstractActionController {
                 $this->objectManager->persist($item);
                 $this->objectManager->flush();
 
-                $message = 'Категория изменена';
+                $message = 'Категория успешно изменена!';
                 $this->flashMessenger()->addMessage($message);
                 // Redirect to list of items
                 return $this->redirect()->toRoute('zfcadmin/news/categories');
             } else {
-                $message = 'Ошибка при изменении категории';
+                $message = 'Форма заполнена неправильно!';
                 $this->flashMessenger()->addErrorMessage($message);
             }
         } else {

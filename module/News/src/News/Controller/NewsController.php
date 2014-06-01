@@ -67,7 +67,7 @@ class NewsController extends AbstractActionController {
         $paginator->setDefaultItemCountPerPage(10);
 
         if($page > $paginator->count()) {
-            $message = 'Страницы, которую Вы ввели не существует';
+            $message = sprintf('Страницы <em>%s</em> не существует!', $page);
             $this->flashMessenger()->addMessage($message);
             if($categoryId) {
                 $this->redirect()->toRoute('news/category', array('category' => $categoryId));
@@ -93,8 +93,8 @@ class NewsController extends AbstractActionController {
         $paginator->setDefaultItemCountPerPage(10);
 
         if($page > $paginator->count()) {
-            $message = 'Страницы, которую Вы ввели не существует';
-            $this->flashMessenger()->addMessage($message);
+            $message = sprintf('Страницы <em>%s</em> не существует!', $page);
+            $this->flashMessenger()->addErrorMessage($message);
             return $this->redirect()->toRoute('zfcadmin/news');
         }
 
@@ -146,10 +146,13 @@ class NewsController extends AbstractActionController {
                 
                 $this->objectManager->persist($item);
                 $this->objectManager->flush();
-                $message = 'Новость добавлена';
+                $message = 'Новость успешно добавлена!';
                 $this->flashMessenger()->addMessage($message);
                 // Redirect to list of items
                 return $this->redirect()->toRoute('zfcadmin/news');
+            } else {
+                $message = 'Форма заполнена неправильно!';
+                $this->flashMessenger()->addErrorMessage($message);
             }
         }
         
@@ -179,6 +182,8 @@ class NewsController extends AbstractActionController {
         
         $this->objectManager->remove($item);
         $this->objectManager->flush();
+
+        $this->flashMessenger()->addMessage(sprintf('Новость "%s" успешно удалена', $item->getTitle()));
 
         $view = new ViewModel($result);
         return $view;
@@ -228,12 +233,12 @@ class NewsController extends AbstractActionController {
                 $this->objectManager->persist($item);
                 $this->objectManager->flush();
 
-                $message = 'Новость изменена';
+                $message = 'Новость успешно изменена!';
                 $this->flashMessenger()->addMessage($message);
                 // Redirect to list of items
                 return $this->redirect()->toRoute('zfcadmin/news');
             } else {
-                $message = 'Ошибка при изменении новости';
+                $message = 'Форма заполнена неправильно!';
                 $this->flashMessenger()->addErrorMessage($message);
             }
         } else {
@@ -264,6 +269,7 @@ class NewsController extends AbstractActionController {
     public function fullAction() {
         $itemId = (int)$this->params('id');
         if(!$itemId) {
+            $this->flashMessenger()->addErrorMessage(sprintf('Новость с идентификатором "%s" не найдена', $id));
             return $this->redirect()->toRoute('news');
         }
 
