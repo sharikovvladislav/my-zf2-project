@@ -41,10 +41,12 @@ class NewsController extends AbstractActionController {
             }
         }
 
-        return new ViewModel(array(
+        $viewModel =  new ViewModel(array(
             'news' => $this->getItems($category->getId()),
             'categoryName' => $category->getName(),
         ));
+        $viewModel->setTemplate('news/news/index.phtml');
+        return $viewModel;
     }
 
     private function getItems($categoryId = null) {
