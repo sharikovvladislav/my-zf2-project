@@ -8,23 +8,23 @@
     <? foreach($this->news as $item): ?>
         <div>
             <label>Заголовок</label>
-            <a href="<?=$this->url('news/full', array('id' => $item['id']));?>"><?=$item['title'];?></a>
+            <a href="<?=$this->url('news/full', array('id' => $item->getId()));?>"><?=$item->getTitle()?></a>
         </div>
         <div>
             <label>Категория</label>
-            <a href="<?=$this->url('news/category', array('category' => $item['categoryUrl']));?>"><?=$item['category']; ?></a>
+            <a href="<?=$this->url('news/category', array('category' => $item->getCategoryUrl()));?>"><?=$item->getCategoryName()?></a>
         </div>
         <div>
             <label>Создано</label>
-            <?=date('d.m.Y в H:i', $item['created']);?>
+            <?=date('d.m.Y в H:i', $item->getCreated());?>
         </div>
         <div>
             <label>Автор</label>
-            <?=$item['user'];?>
+            <?=$item->getUserName();?>
         </div>
         <div>
             <label>Полный текст новости</label>
-            <?=$item['text'];?>
+            <?=$item->getText();?>
         </div>
         <hr />
     <? endforeach; ?>

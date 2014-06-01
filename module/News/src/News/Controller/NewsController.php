@@ -65,15 +65,8 @@ class NewsController extends AbstractActionController {
         $paginator->setCurrentPageNumber($page);
         $paginator->setDefaultItemCountPerPage(10);
 
-        $items = array();
-        foreach ($paginator as $item) {
-            $buffer = $item->getArrayCopy();
-            $buffer['category'] = $item->getCategoryName();
-            $buffer['categoryUrl'] = $item->getCategoryUrl();
-            $buffer['user'] = $item->getUserName();
-            $items[] = $buffer;
-        }
-        return $items;
+
+        return $paginator;
     }
 
     public function listAction() {
