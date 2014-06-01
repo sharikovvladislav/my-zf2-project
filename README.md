@@ -16,7 +16,7 @@ TODO List (todo item, done date)
 + Pagination
  + News `list` action
  + Categories `index` action
- + ~~News `index` action~~ | 23.05.2014 00.05 + Add paginator to view
+ + ~~News `index` action~~ | 23.05.2014 00.05 + ~~Add paginator to view~~ | 01.06.2014 15.53
  + Check incorrect page numbers
 + Fix problem with ORM and `MyZdcAdmin` config
 + Users part of `News` module
