@@ -6,6 +6,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use \News\Entity\Category as Category;
 use \News\Form\CategoryForm as CategoryForm;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as PaginatorAdapter;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator as ZendPaginator;
 
 class CategoryController extends AbstractActionController {
     protected $objectManager;
@@ -17,20 +20,20 @@ class CategoryController extends AbstractActionController {
     }
 
     public function indexAction() {
+        $page = (int)$this->params('page');
+
         $categories = $this->objectManager
-            ->getRepository('\News\Entity\Category')
-            ->findAll();
-            
-        $items = array();
-        foreach ($categories as $category) {
-            $items[] = $category->getArrayCopy();
-        }
+            ->getRepository('\News\Entity\Category');
 
-        $view = new ViewModel(array(
-            'categories' => $items,
+        $query = $categories->createQueryBuilder('c');
+
+        $paginator = new ZendPaginator(new PaginatorAdapter(new ORMPaginator($query)));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setDefaultItemCountPerPage(20);
+
+        return new ViewModel(array(
+            'categories' => $paginator,
         ));
-
-        return $view;
     }
 
     public function addAction() {
