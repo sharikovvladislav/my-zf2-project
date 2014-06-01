@@ -26,15 +26,27 @@ return array(
             'news' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/news[/page-:page]',
+                    'route' => '/news',
                     'defaults' => array(
                         'controller' => 'News\Controller\Item',
                         'action'     => 'index',
-                        'page'      => 1,
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'pagination' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/page-:page',
+                            'constraints' => array(
+                                'page'     => '[1-9][0-9]*',
+                            ),
+                            'defaults' => array(
+                                'page'      => 1,
+                            )
+                        ),
+                        'may_terminate' => true,
+                    ),
                     'full' => array(
                         'type' => 'Segment',
                         'options' => array(
