@@ -32,7 +32,7 @@ TODO List (todo item, done date)
     + Add dashboard (news stats, admin stats, etc...)
     + Fix login form at login page (center it)
     + Breadcrumb
-    + Add `showMessages` helper messages box (bootstrap)
+    + ~~Add `showMessages` helper messages box (bootstrap)~~ | 01.06.2014 16.00
   + User part
   + Ajax forms
 + Find and install News Editor
