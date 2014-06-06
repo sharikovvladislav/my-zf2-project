@@ -24,7 +24,7 @@ class NewsController extends AbstractActionController {
     public function indexAction() {
         return new ViewModel(array(
             'news' => $this->getItems(),
-            'categoryName' => null,
+            'category' => null,
         ));
     }
 
@@ -42,7 +42,7 @@ class NewsController extends AbstractActionController {
 
         $viewModel =  new ViewModel(array(
             'news' => $this->getItems($category->getId()),
-            'categoryName' => $category->getName(),
+            'category' => $category,
         ));
         $viewModel->setTemplate('news/news/index.phtml');
         return $viewModel;
@@ -64,16 +64,12 @@ class NewsController extends AbstractActionController {
 
         $paginator = new ZendPaginator(new PaginatorAdapter(new ORMPaginator($query)));
         $paginator->setCurrentPageNumber($page);
-        $paginator->setDefaultItemCountPerPage(10);
+        $paginator->setDefaultItemCountPerPage(1); // @TODO Set up normal items per page
+        $normalizedPage = $paginator->normalizePageNumber($page);
 
         if($page > $paginator->count()) {
-            $message = sprintf('Страницы %s не существует!', $page);
-            $this->flashMessenger()->addMessage($message);
-            if($categoryId) {
-                $this->redirect()->toRoute('news/category', array('category' => $categoryId));
-            } else {
-                $this->redirect()->toRoute('news');
-            }
+            $message = sprintf('Страницы %s не существует! Будет отображена страница %s.', $page, $normalizedPage);
+            $this->flashMessenger()->addWarningMessage($message);
         }
 
         return $paginator;
