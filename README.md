@@ -17,7 +17,8 @@ TODO List (todo item, done date)
  + ~~News `list` action~~ | 01.06.2014 19.58
  + ~~Categories `index` action~~ | 01.06.2014 20.40
  + ~~News `index` action~~ | 23.05.2014 00.05 + ~~Add paginator to view~~ | 01.06.2014 15.53
- + Check incorrect page numbers
+ + ~~Check incorrect page numbers~~ | 07.06.2014 01.33
+ + Fix route in pagination controls when category specified
 + Fix problem with ORM and `MyZdcAdmin` config
 + Users part of `News` module
  + ~~Full news~~  | 18.05.2014 22.00
@@ -32,7 +33,7 @@ TODO List (todo item, done date)
     + Add dashboard (news stats, admin stats, etc...)
     + Fix login form at login page (center it)
     + Breadcrumb
-    + ~~Add `showMessages` helper messages box (bootstrap)~~ | 01.06.2014 16.00
+    + ~~Add `showMessages` helper messages box (bootstrap)~~ | 01.06.2014 16.00 + ~~Fixed message if page is wrong~~ | 07.06.2014 01.32
     + Fix forms styles
   + User part
   + Ajax forms
