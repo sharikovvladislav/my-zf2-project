@@ -3,7 +3,7 @@
 
     $this->headTitle($title); 
 ?>
-<? echo $this->categoryName ?  "<h1>Категория: $this->categoryName</h1>" : "<h1>Список новостей</h1>"; ?>
+<? echo $this->category  ?  "<h1>Категория: ".$this->category->getName()."</h1>" : "<h1>Список новостей</h1>"; ?>
 <?=$this->showMessages();?>
 <? if($this->news): ?>
     <? foreach($this->news as $item): ?>
@@ -35,7 +35,7 @@
                     $this->news,
                     'Sliding',
                     'pagination_control',
-                    array('route' => 'news/pagination')
+                    $this->category ? array('route' => 'news/category/pagination', array('category' => $this->category->getUrl())) : array('route' => 'news/pagination')
                 )?>
         </div>
     <? endif; ?>
