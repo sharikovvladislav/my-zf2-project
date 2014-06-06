@@ -30,6 +30,12 @@ class CategoryController extends AbstractActionController {
         $paginator = new ZendPaginator(new PaginatorAdapter(new ORMPaginator($query)));
         $paginator->setCurrentPageNumber($page);
         $paginator->setDefaultItemCountPerPage(20);
+        $normalizedPage = $paginator->normalizePageNumber($page);
+
+        if($page > $paginator->count()) {
+            $message = sprintf('Страницы %s не существует! Будет отображена страница %s.', $page, $normalizedPage);
+            $this->flashMessenger()->addWarningMessage($message);
+        }
 
         return new ViewModel(array(
             'categories' => $paginator,
