@@ -22,7 +22,7 @@ TODO List (todo item, done date)
 + Fix problem with ORM and `MyZfcAdmin` config
 + Users part of `News` module
  + ~~Full news~~  | 18.05.2014 22.00
- + `Like`'s 
+ + `Like`'s
  + ~~List of news~~ | 18.05.2014 22.00
  + ~~News by category~~ | 18.05.2014 23.43
 + Divide `News` module to front end and back end parts (?)
