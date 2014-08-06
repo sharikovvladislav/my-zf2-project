@@ -35,7 +35,7 @@
                     $this->news,
                     'Sliding',
                     'pagination_control',
-                    $this->category ? array('route' => 'news/category/pagination', array('category' => $this->category->getUrl())) : array('route' => 'news/pagination')
+                    $this->category ? array('route' => 'news/category/pagination', 'category' => $this->category->getUrl()) : array('route' => 'news/pagination')
                 )?>
         </div>
     <? endif; ?>
